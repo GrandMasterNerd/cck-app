@@ -323,10 +323,10 @@ if st.session_state["page"] == "Details":
     # Meet the Founders Section
     st.subheader("🤝 Meet the Founders")
     founders = {
-        "Nolan Verboomen": "https://via.placeholder.com/150",
+        "Nolan Verboomen": "res/IMG_0158 (1).jpg",
         "Adam Likogiannis": "https://via.placeholder.com/150",
-        "Aidan Murray": "https://via.placeholder.com/150",
-        "Eiqan Ahsan": "https://via.placeholder.com/150"
+        "Aidan Murray": "res/image (10).png",
+        "Eiqan Ahsan": "res/Headshot (2).PNG"
     }
     cols = st.columns(len(founders))
     for col, (name, img_url) in zip(cols, founders.items()):
