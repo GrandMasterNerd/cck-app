@@ -71,13 +71,44 @@ landmarks_data = {
         },
         "Bellevue House": {
             "Distance": "1400m",
-            "Fun Fact": "Home to Canada’s first Prime Minister, Sir John A. Macdonald, during a pivotal period in his career.",
+            "Fun Fact": "Home to Canada’s first Prime Minister, Sir John A. Macdonald.",
             "Image": "https://media-cdn.tripadvisor.com/media/photo-s/0f/db/05/7c/canada-s-1st-pm-jamacdoanld.jpg",
             "History": "Built in the 1840s, Bellevue House was designated a National Historic Site for its connection to Macdonald.",
             "Features": "Guided tours, restored 1840s rooms, and exhibits about Canada’s early political history."
         }
+    },
+    "Nature": {
+        "Lake Ontario Park": {
+            "Distance": "3900m",
+            "Fun Fact": "Kingston’s largest urban waterfront park, revitalized in 2013.",
+            "Image": "https://www.cityofkingston.ca/documents/10180/12235/ontario-park.jpg",
+            "History": "Established in 1894, it serves as a major natural space for Kingston residents.",
+            "Features": "Sandy beach, walking paths, picnic areas, splash pad, boat launch, and fishing areas."
+        },
+        "Lemoine Point": {
+            "Distance": "12200m",
+            "Fun Fact": "Home to a variety of ecosystems, including forests, wetlands, and meadows.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Lemoine_Point_Conservation_Area.jpg",
+            "History": "Established in 1992 to protect and showcase the area's natural beauty.",
+            "Features": "Over 10 kilometers of trails, scenic views of Lake Ontario, and opportunities for birdwatching and fishing."
+        }
+    },
+    "Cultural": {
+        "The Grand Theatre": {
+            "Distance": "1000m",
+            "Fun Fact": "A heritage property, contributing to Kingston's arts scene.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/d/df/The_Grand_Theatre_in_Kingston.jpg",
+            "History": "Established in the early 20th century, a cornerstone of Kingston's arts scene.",
+            "Features": "Intimate auditorium with 600 seats, state-of-the-art sound and lighting systems."
+        },
+        "Tett Centre for Creativity and Learning": {
+            "Distance": "1700m",
+            "Fun Fact": "Home to nine arts organizations and eight Creativity Studio Artists.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Tett_Centre_Kingston.jpg",
+            "History": "The J.K. Tett heritage building was renovated in 2015 to house the centre.",
+            "Features": "Classes, workshops, exhibitions, and studio spaces for artists."
+        }
     }
-    # Other categories can follow this same format...
 }
 
 if menu == "Home":
@@ -101,9 +132,9 @@ elif menu == "Landmarks":
     st.header("Landmarks")
     category = st.selectbox("Select a Category", list(landmarks_data.keys()))  # Category selection
     landmark = st.selectbox("Select a Landmark", list(landmarks_data[category].keys()))  # Landmark selection
-    
+
     details = landmarks_data[category][landmark]  # Retrieve selected landmark details
-    
+
     # Display landmark image and information
     st.image(details["Image"], caption=landmark)
     st.write(f"**Distance:** {details['Distance']}")
