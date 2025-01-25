@@ -24,7 +24,7 @@ st.markdown(
 )
 
 # Create 3 columns
-col1, col2, col3 = st.columns(3)
+col1, col2, col3 = st.columns([1, 3, 1])
 
 # Place content in the columns
 col1.write("This is Column 1")
