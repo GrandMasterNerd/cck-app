@@ -212,29 +212,34 @@ landmarks_data = {
         }
     }
 }
-if menu == "Home":
-    # Home page: Introduction to Compass Chronicles and what it offers
-    st.header("Welcome to Compass Chronicles: Kingston!")
+# Home Page
+if "Home" not in st.session_state:
+    st.session_state["page"] = "Home"
+
+if st.session_state["page"] == "Home":
+    st.title("🧭 Compass Chronicles: Kingston")
+    st.image("https://placeholder-for-logo-image", caption="Explore Kingston in a new way!", use_container_width=True)
+
+    st.header("Welcome to Compass Chronicles")
     st.write("""
         Use your phone as a compass to uncover Kingston's landmarks, collect badges, 
         access local deals, and learn about the city’s rich history and culture.
     """)
 
-    if st.button("Start Exploring"):  # Large button to navigate to categories
-        st.session_state["navigate_to_categories"] = True
+    if st.button("Start Exploring"):
+        st.session_state["page"] = "Categories"
 
-    if st.session_state.get("navigate_to_categories", False):
-        st.header("Choose a Category")
-        categories = ["Engineer", "Historical", "Nature", "Cultural"]
-        category = st.selectbox("Explore by Category", categories)
-        st.write(f"You selected the {category} category.")
+# Categories and Landmarks Page
+if st.session_state["page"] == "Categories":
+    st.header("Choose a Category")
+    category = st.selectbox("Select a Category", list(landmarks_data.keys()))
 
-        if category in landmarks_data:
-            st.subheader(f"Landmarks in {category}")
-            landmark = st.selectbox("Select a Landmark", list(landmarks_data[category].keys()))
+    if category:
+        st.subheader(f"Landmarks in {category}")
+        landmark = st.selectbox("Select a Landmark", list(landmarks_data[category].keys()))
+
+        if landmark:
             details = landmarks_data[category][landmark]
-
-            # Display landmark details
             st.image(details["Image"], caption=landmark, use_container_width=True)
             st.write(f"**Distance:** {details['Distance']}")
             st.write(f"**Fun Fact:** {details['Fun Fact']}")
