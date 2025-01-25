@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
 
-from flask import Flask, request
+from flask import Flask
 from threading import Thread
 
 # Setting custom page config
@@ -10,6 +10,39 @@ st.set_page_config(
     page_icon="🧭",
     layout="centered",
 )
+
+# Initialize Flask app
+flask_app = Flask(__name__)
+
+# Shared variable to store the signal
+signal = None
+
+# Flask route to handle the GET request
+@flask_app.route('/get_signal', methods=['GET'])
+def get_signal():
+    global signal
+    signal = request.args.get('signal', None)
+    if signal:
+        print(f"Received signal: {signal}")  # You can print the signal in the terminal
+    return "Signal received"
+
+# Function to run Flask app in a separate thread
+def run_flask():
+    flask_app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
+
+# Start the Flask server in a separate thread
+thread = Thread(target=run_flask)
+thread.daemon = True  # Ensure the thread ends when the main program ends
+thread.start()
+
+# Streamlit UI
+st.title("ESP8266 Signal Receiver")
+
+# Display the received signal if available
+if signal:
+    st.success(f"Received signal: {signal}")
+else:
+    st.info("Waiting for signal...")
 
 # Custom CSS for styling and animations
 st.markdown("""
