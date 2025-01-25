@@ -29,7 +29,7 @@ st.title("Compass Chronicles: Kingston")
 st.write("Welcome to Compass Chronicles: Kingston")
 st.image("res/Kingston-Overview.JPG")
 
-message = "You have found {}%% of badges".format(completion)
+message = "You have found {} % of badges".format(completion)
 st.write(message)
 st.progress(completion)
 
