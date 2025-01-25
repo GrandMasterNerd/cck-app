@@ -312,7 +312,7 @@ if st.session_state["page"] == "Details":
     cols = st.columns(len(founders))
     for col, (name, img_url) in zip(cols, founders.items()):
         with col:
-            st.image(img_url, caption=name, use_column_width=True)
+            st.image(img_url, caption=name, use_container_width=True)
 
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
