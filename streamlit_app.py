@@ -1,6 +1,13 @@
 import streamlit as st
 from PIL import Image
 
+# Setting custom page config
+st.set_page_config(
+    page_title="Compass Chronicles: Kingston",
+    page_icon="🧭",
+    layout="centered",
+)
+
 # Get the query parameters
 query_params = st.query_params
 
@@ -10,13 +17,6 @@ if "signal" in query_params:
     st.success(f"Received signal: {signal}")
 else:
     st.info("No signal received yet.")
-
-# Setting custom page config
-st.set_page_config(
-    page_title="Compass Chronicles: Kingston",
-    page_icon="🧭",
-    layout="centered",
-)
 
 # Custom CSS for styling and animations
 st.markdown("""
