@@ -1,6 +1,8 @@
 import streamlit as st
 from PIL import Image
 
+import streamlit.components.v1 as components
+
 # Setting custom page config
 st.set_page_config(
     page_title="Compass Chronicles: Kingston",
@@ -355,3 +357,21 @@ if st.session_state["page"] == "Categories":
 
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
+
+# Embedding the JavaScript code to scan networks
+components.html("""
+  <script>
+    function scanNetworks() {
+      if (navigator.bluetooth) {
+        navigator.bluetooth.requestDevice({acceptAllDevices: true})
+          .then(device => {
+            if(device.name == "ESP8266_Network") {
+              alert("You are near the ESP8266!");
+            }
+          })
+          .catch(error => console.log(error));
+      }
+    }
+    scanNetworks();
+  </script>
+""", height=0)
