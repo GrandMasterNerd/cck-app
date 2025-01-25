@@ -36,12 +36,37 @@ elif menu == "Landmarks":
             "Distance": "0m",
             "Fun Fact": "Opened in 2002, it features solar panels and energy-efficient systems.",
             "Image": "https://bharchitects.com/wp-content/uploads/2017/01/Queens-University-Beamish-Munro_Hero.jpg",
+            "History": "Opened in May 2004, recognized as one of the most environmentally advanced buildings in Canada.",
+            "Features": "Interactive learning spaces, advanced labs, and sustainable design elements."
         },
         "Fort Henry": {
             "Distance": "4600m",
             "Fun Fact": "Built to protect the Rideau Canal.",
             "Image": "https://www.tripsavvy.com/thmb/_Jk2Q-Mww_1DvT68onhqZX_QmaQ=/2573x2038/filters:no_upscale()/FortHenry-59f0e1d8d088c00010f2c09a.jpg",
+            "History": "19th-century British military fortress, replacing an earlier fortification from the War of 1812.",
+            "Features": "Guided tours, live demonstrations of artillery drills, and interactive exhibits."
         },
+        "Stauffer Library": {
+            "Distance": "550m",
+            "Fun Fact": "The largest library on Queen’s campus with room for 1.5 million volumes.",
+            "Image": "https://www.queensu.ca/encyclopedia/sites/qencwww/files/uploaded_images/s/staufferlibrary/b-stauff.jpg",
+            "History": "Constructed with a donation from the Stauffer Foundation, supporting Queen's academic community.",
+            "Features": "Group and individual study spaces, Adaptive Technology Centre, and advanced library facilities."
+        },
+        "Goodwin Hall": {
+            "Distance": "230m",
+            "Fun Fact": "Connected to Walter Light Hall, creating a technology center.",
+            "Image": "https://www.queensu.ca/encyclopedia/sites/qencwww/files/uploaded_images/g/goodwinhall/b-goodw.jpg",
+            "History": "Completed in 1972, named after the first director of the School of Mining and Agriculture.",
+            "Features": "Specialized labs, Human Media Lab with gesture technology, and innovative research facilities."
+        },
+        "Ellis Hall": {
+            "Distance": "400m",
+            "Fun Fact": "Houses the Queen's Observatory on its roof.",
+            "Image": "https://www.queensu.ca/encyclopedia/sites/qencwww/files/uploaded_images/e/ellishall/b-ellis.jpg",
+            "History": "Constructed in 1958 to meet increased demand for scientific courses post-WWII.",
+            "Features": "High-tech classrooms, active learning spaces, and modern teaching technologies."
+        }
     }
 
     landmark = st.selectbox("Select a Landmark", list(landmarks.keys()))
@@ -49,6 +74,8 @@ elif menu == "Landmarks":
     st.image(details["Image"], caption=landmark)
     st.write(f"**Distance:** {details['Distance']}")
     st.write(f"**Fun Fact:** {details['Fun Fact']}")
+    st.write(f"**History:** {details['History']}")
+    st.write(f"**Features:** {details['Features']}")
 
 elif menu == "Your Badges":
     st.header("Your Badges")
