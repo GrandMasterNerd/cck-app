@@ -40,20 +40,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Title and logo
-st.title("🧭 Compass Chronicles: Kingston")
-st.image("https://placeholder-for-logo-image", caption="Explore Kingston in a new way!", use_container_width=True)
-
-# Navigation menu
-menu = st.sidebar.selectbox("Explore", [
-    "Home",
-    "Categories",
-    "Landmarks",
-    "Your Badges",
-    "Local Deals",
-    "About the App",
-])
-
 # Landmarks data in the four categories
 landmarks_data = {
     "Engineer": {
