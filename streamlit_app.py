@@ -23,14 +23,7 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
-# Create 3 columns
-col1, col2, col3 = st.columns([2, 3, 2])
-
-# Place content in the columns
-col1.write("This is Column 1")
-col2.write("This is Column 2")
-col3.write("This is Column 3")
-
 st.title("Compass Chronicles: Kingston")
 st.write("Welcome to Compass Chronicles: Kingston")
 st.image("res/Kingston-Overview.JPG")
+st.progress(50)
