@@ -9,74 +9,108 @@
 #          pictures, videos, audio, etc.
 
 import streamlit as st
+from streamlit.components.v1 import html
+import random
 
-# Set the background color for the application
-st.markdown(
-    """
-    <style>
-    body, .block-container {
-        background-color: #003153 !important;  /* Prussian Blue color code */
-        color: #FFFFFF !important; /* White text */
+def main():
+    st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
+    st.title("🔍 Compass Chronicles: Kingston")
+    
+    # Sidebar for navigation
+    st.sidebar.title("Navigate")
+    page = st.sidebar.radio("Go to:", [
+        "Home", "Explore Landmarks", "Your Badges", "Local Deals", "About"])
+
+    if page == "Home":
+        home_page()
+    elif page == "Explore Landmarks":
+        explore_landmarks()
+    elif page == "Your Badges":
+        view_badges()
+    elif page == "Local Deals":
+        view_deals()
+    elif page == "About":
+        about_page()
+
+# Home Page
+def home_page():
+    st.header("Welcome to Compass Chronicles!")
+    st.markdown("Use your phone as a compass to uncover landmarks, collect badges, and discover Kingston's rich history and culture.")
+    st.image("https://via.placeholder.com/800x400", caption="Explore Kingston like never before!", use_column_width=True)
+    
+    st.markdown("### Features")
+    st.markdown("- **Explore landmarks** and learn their history.")
+    st.markdown("- **Collect badges** for your achievements.")
+    st.markdown("- **Get local deals** from participating businesses.")
+    st.markdown("- **Navigate** with ease and uncover hidden gems.")
+    
+    st.button("Get Started", key="start_button")
+
+# Landmarks Page
+def explore_landmarks():
+    categories = {
+        "Engineering": ["Beamish-Munro Hall", "Stauffer Library", "Goodwin Hall", "Jeffery Hall", "Ellis Hall", "Dupuis Hall"],
+        "Historical": ["Fort Henry", "Bellevue House", "Kingston City Hall", "Kingston Penitentiary", "Murney Tower", "Martello Alley"],
+        "Nature": ["Lake Ontario Park", "Lemoine Point", "Little Cataraqui Creek", "Portsmouth Olympic Harbour", "Battery Park", "Grass Creek Park"],
+        "Cultural": ["The Grand Theatre", "Tett Centre", "Isabel Bader Centre", "Skeleton Park", "Slush Puppie Place"]
     }
-    h1, h2, h3, h4, h5, h6 {
-        color: #FFD700 !important; /* Gold text for headings */
-    }
-    </style>
-    """, unsafe_allow_html=True
-)
+    
+    st.header("Explore Landmarks")
+    category = st.selectbox("Choose a category:", categories.keys())
+    
+    for landmark in categories[category]:
+        st.subheader(landmark)
+        st.markdown(f"**Distance:** {random.randint(100, 1000)}m")
+        st.markdown("**Fun Fact:** Did you know? This is one of Kingston's most iconic landmarks.")
+        if st.button(f"Learn More about {landmark}"):
+            display_landmark_details(landmark)
 
-# Initialize badges earned
-completion = 0  # Percent of "badges" earned by visiting different city locations
+# Landmark Details
+def display_landmark_details(landmark):
+    st.sidebar.title(landmark)
+    st.markdown(f"### Welcome to {landmark}!")
+    st.image("https://via.placeholder.com/800x400", caption=f"{landmark}", use_column_width=True)
+    st.markdown("- **History:** This landmark has a rich history.")
+    st.markdown("- **Features:** Beautiful architecture, great stories, and more.")
 
-# App Title and Introduction
-st.title("Compass Chronicles: Kingston")
-st.write("Welcome to Compass Chronicles: Kingston! Use your phone to explore landmarks, learn history, and collect badges as you go!")
-st.image("res/Kingston-Overview.JPG", caption="Discover the vibrant city of Kingston", use_column_width=True)
+# Badges Page
+def view_badges():
+    st.header("Your Badges")
+    st.markdown("Keep exploring to collect more badges!")
+    badges = [
+        "Engineering Explorer", "Nature Enthusiast", "History Buff", "Culture Connoisseur"
+    ]
+    
+    for badge in badges:
+        st.markdown(f"- {badge}")
 
-# Badge Completion Progress
-message = "You have found {}% of badges".format(completion)
-st.write(message)
-st.progress(completion)
+# Deals Page
+def view_deals():
+    st.header("Local Deals")
+    st.markdown("Discover exclusive promotions around Kingston:")
+    
+    deals = [
+        "Show this screen at Common Ground Coffeehouse for 10% off any drink!",
+        "Get 20% off at The Grad Club after collecting 5 badges.",
+        "Exclusive discounts at participating Kingston shops!"
+    ]
+    
+    for deal in deals:
+        st.markdown(f"- {deal}")
 
-# Interactive Landmark Feature
-def display_landmark(name, description, image_path):
-    """Display a landmark with its name, description, and image."""
-    st.subheader(name)
-    st.image(image_path, use_column_width=True)
-    st.write(description)
+# About Page
+def about_page():
+    st.header("About Compass Chronicles")
+    st.markdown("Compass Chronicles: Kingston is an immersive app that helps locals and visitors discover the city in a fun and engaging way.")
+    st.markdown("- Built with Python, Streamlit & GoDaddy.")
+    st.markdown("- Uses ESP8266 Kintone Wi-Fi modules for location-based experiences.")
+    st.markdown("- Designed for seamless navigation and discovery.")
+    st.markdown("### Our Vision")
+    st.markdown("To make Compass Chronicles: Kingston the go-to app for exploring the city’s rich history, culture, and local charm!")
 
-# Example Landmark: Beamish-Munro Hall
-display_landmark(
-    "Beamish-Munro Hall",
-    "Beamish-Munro Hall is the heart of engineering innovation at Queen's University. Opened in 2002, it is home to advanced labs and collaborative spaces, supporting students in solving real-world challenges.",
-    "res/Beamish-Munro-Hall.jpg"
-)
-
-# Add more landmarks dynamically
-landmark_choice = st.selectbox(
-    "Choose a landmark to explore:",
-    ["Beamish-Munro Hall", "Fort Henry", "City Hall", "Martello Tower"]
-)
-
-if landmark_choice == "Fort Henry":
-    display_landmark(
-        "Fort Henry",
-        "Fort Henry is a historic site and living museum of military life in the 19th century. A UNESCO World Heritage Site, it offers spectacular views and engaging historical reenactments.",
-        "res/Fort-Henry.jpg"
-    )
-elif landmark_choice == "City Hall":
-    display_landmark(
-        "Kingston City Hall",
-        "Kingston's City Hall is an iconic neoclassical building and National Historic Site of Canada, reflecting the city's rich history.",
-        "res/City-Hall.jpg"
-    )
-elif landmark_choice == "Martello Tower":
-    display_landmark(
-        "Martello Tower",
-        "The Martello Towers are unique defensive structures built during the 19th century, showcasing Kingston's strategic military significance.",
-        "res/Martello-Tower.jpg"
-    )
-
+if __name__ == "__main__":
+    main()
+    
 # Footer with Credits
 st.markdown(
     """
