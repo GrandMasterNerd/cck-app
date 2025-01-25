@@ -12,12 +12,12 @@
 
 import streamlit as st
 
-# Add custom CSS to change the background color to Navy Blue
+# Add custom CSS to change the background color to Prussian Blue
 st.markdown(
     """
     <style>
     body, .block-container {
-        background-color: ##000080 !important;  # Navy Blue color code
+        background-color: #003153 !important;  # Prussian Blue color code
     }
     </style>
     """, unsafe_allow_html=True
