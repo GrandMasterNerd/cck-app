@@ -13,9 +13,15 @@ from streamlit.components.v1 import html
 import asyncio
 import websockets
 from threading import Thread
+import pandas as pd
+import folium
+from streamlit_folium import st_folium
 
 # Set page configuration (must be the first Streamlit command)
 st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
+
+# Global state to store theme and location data
+state = {"theme": None, "location": None}
 
 def main():
     st.markdown(
@@ -48,13 +54,16 @@ def main():
         "<style>.sidebar .sidebar-content { background-color: #f5deb3; }</style>",
         unsafe_allow_html=True
     )
-    st.button("Start Exploring", key="start_button", on_click=show_category_selection)
+    if st.sidebar.button("Start Exploring", key="start_button"):
+        show_category_selection()
+    if state.get("theme") and state.get("location"):
+        show_theme_locations(state["theme"])
 
 def show_category_selection():
     st.header("Select a Theme")
-    theme = st.radio("Choose a theme:", [
+    state["theme"] = st.radio("Choose a theme:", [
         "Historical Landmarks", "Cultural Hotspots", "Nature Trails", "Engineering Feats"])
-    show_theme_locations(theme)
+    show_theme_locations(state["theme"])
 
 def show_theme_locations(theme):
     st.header(f"Explore {theme}")
@@ -66,11 +75,11 @@ def show_theme_locations(theme):
         "Engineering Feats": ["Beamish-Munro Hall", "Stauffer Library", "Goodwin Hall"]
     }
 
-    location = st.selectbox("Search Locations:", locations[theme])
-    st.markdown(f"**Selected Location:** {location}")
-    st.image("https://via.placeholder.com/800x400", caption=location, use_container_width=True)
+    state["location"] = st.selectbox("Search Locations:", locations[theme])
+    if state["location"]:
+        show_location_details(state["location"])
 
-    # Example description for the location
+def show_location_details(location):
     descriptions = {
         "Fort Henry": "Fort Henry is a 19th-century military fortification and a UNESCO World Heritage Site.",
         "Kingston City Hall": "A historic building that is a symbol of Kingston's heritage.",
@@ -86,7 +95,31 @@ def show_theme_locations(theme):
         "Goodwin Hall": "Home to advanced engineering and applied science facilities."
     }
 
+    st.markdown(f"**Selected Location:** {location}")
+    st.image("https://via.placeholder.com/800x400", caption=location, use_container_width=True)
     st.markdown(f"**Description:** {descriptions.get(location, 'No description available.')}")
+
+    # Map integration
+    coordinates = {
+        "Fort Henry": (44.2296, -76.4746),
+        "Kingston City Hall": (44.2312, -76.4787),
+        "St. George's Cathedral": (44.2305, -76.4833),
+        "The Isabel Bader Centre": (44.2241, -76.4957),
+        "Grand Theatre": (44.2331, -76.4864),
+        "Agnes Etherington Art Centre": (44.2256, -76.4951),
+        "Lemoine Point": (44.2387, -76.5794),
+        "Little Cataraqui Creek": (44.2633, -76.5483),
+        "Kingston Waterfront": (44.2298, -76.4816),
+        "Beamish-Munro Hall": (44.2255, -76.4949),
+        "Stauffer Library": (44.2260, -76.4958),
+        "Goodwin Hall": (44.2270, -76.4946)
+    }
+
+    coord = coordinates.get(location)
+    if coord:
+        m = folium.Map(location=coord, zoom_start=15)
+        folium.Marker(coord, popup=location).add_to(m)
+        st_folium(m, width=800, height=400)
 
 # Footer with Credits
 st.markdown(
