@@ -10,9 +10,6 @@
 
 import streamlit as st
 from streamlit.components.v1 import html
-import random
-from io import BytesIO
-from PIL import Image
 
 def main():
     st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
@@ -58,50 +55,30 @@ def home_page():
 
 # Landmarks Page
 def explore_landmarks():
-    categories = {
-        "Engineer": [
-            {"name": "Beamish-Munro Hall", "distance": 0},
-            {"name": "Stauffer Library", "distance": 500},
-            {"name": "Goodwin Hall", "distance": 300},
-            {"name": "Jeffery Hall", "distance": 450},
-            {"name": "Ellis Hall", "distance": 250},
-            {"name": "Dupuis Hall", "distance": 600}
-        ],
-        "Historical": [
-            "Fort Henry", "Bellevue House", "Kingston City Hall", "Kingston Penitentiary", "Murney Tower", "Martello Alley"
-        ],
-        "Nature": [
-            "Lake Ontario Park", "Lemoine Point", "Little Cataraqui Creek Conservation Area", "Portsmouth Olympic Harbour", "Battery Park", "Grass Creek Park"
-        ],
-        "Cultural": [
-            "The Grand Theatre", "Tett Centre for Creativity and Learning", "Isabel Bader Centre", "Skeleton Park", "Slush Puppie Place"
-        ]
+    landmarks = {
+        "Beamish-Munro Hall": {
+            "distance": 0,
+            "image": "https://via.placeholder.com/400x300",
+            "description": "Welcome to Beamish-Munro Hall, the heart of innovation at Queen's University."
+        },
+        "Stauffer Library": {
+            "distance": 500,
+            "image": "https://via.placeholder.com/400x300",
+            "description": "A hub for knowledge and research, Stauffer Library stands tall in Kingston."
+        },
+        "Goodwin Hall": {
+            "distance": 300,
+            "image": "https://via.placeholder.com/400x300",
+            "description": "Goodwin Hall is home to advanced engineering and applied science facilities."
+        }
     }
     
     st.header("Explore Landmarks")
-    category = st.selectbox("Choose a category:", categories.keys())
-    
-    for landmark in categories[category]:
-        if isinstance(landmark, dict):
-            name, distance = landmark["name"], landmark["distance"]
-            st.subheader(name)
-            st.markdown(f"**Distance:** {distance}m")
-            st.markdown("**Fun Fact:** Did you know? This is one of Kingston's most iconic landmarks.")
-            if st.button(f"Learn More about {name}"):
-                display_landmark_details(name)
-        else:
-            st.subheader(landmark)
-            st.markdown("**Fun Fact:** Did you know? This is one of Kingston's most iconic landmarks.")
-            if st.button(f"Learn More about {landmark}"):
-                display_landmark_details(landmark)
-
-# Landmark Details
-def display_landmark_details(landmark):
-    st.sidebar.title(landmark)
-    st.markdown(f"### Welcome to {landmark}!")
-    st.image("https://via.placeholder.com/800x400", caption=f"{landmark}", use_container_width=True)
-    st.markdown("- **History:** This landmark has a rich history.")
-    st.markdown("- **Features:** Beautiful architecture, great stories, and more.")
+    for name, details in landmarks.items():
+        st.subheader(name)
+        st.image(details["image"], caption=name, use_container_width=True)
+        st.markdown(f"**Distance:** {details['distance']}m")
+        st.markdown(f"**Description:** {details['description']}")
 
 # Badges Page
 def view_badges():
@@ -153,6 +130,7 @@ def about_page():
 
 if __name__ == "__main__":
     main()
+
     
 # Footer with Credits
 st.markdown(
