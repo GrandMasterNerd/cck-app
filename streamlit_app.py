@@ -12,9 +12,7 @@
 
 import streamlit as st
 
-# Add custom CSS to change the background color to Prussian Blue
-# Example CSS code to change background color
-# Add custom CSS to change background color to Prussian Blue
+# Set the background color for the application
 st.markdown(
     """
     <style>
@@ -25,7 +23,14 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
-# st.title("🎈 My new app")
+# Create 3 columns
+col1, col2, col3 = st.columns(3)
+
+# Place content in the columns
+col1.write("This is Column 1")
+col2.write("This is Column 2")
+col3.write("This is Column 3")
+
 st.title("Compass Chronicles: Kingston")
 st.write("Welcome to Compass Chronicles: Kingston")
 st.image("res/Kingston-Overview.JPG")
