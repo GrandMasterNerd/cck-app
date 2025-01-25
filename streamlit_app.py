@@ -11,13 +11,24 @@
 import streamlit as st
 from streamlit.components.v1 import html
 import random
+import qrcode
+from io import BytesIO
+from PIL import Image
 
 def main():
     st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
-    st.title("🔍 Compass Chronicles: Kingston")
-    
+    st.markdown(
+        "<style>body { background-color: #f5deb3; color: #4b2e05; font-family: 'Papyrus', sans-serif; }</style>",
+        unsafe_allow_html=True
+    )
+    st.title("🗺️ Compass Chronicles: Kingston")
+
     # Sidebar for navigation
     st.sidebar.title("Navigate")
+    st.sidebar.markdown(
+        "<style>.sidebar .sidebar-content { background-color: #d2b48c; }</style>",
+        unsafe_allow_html=True
+    )
     page = st.sidebar.radio("Go to:", [
         "Home", "Explore Landmarks", "Your Badges", "Local Deals", "About"])
 
@@ -98,11 +109,20 @@ def view_badges():
     st.header("Your Badges")
     st.markdown("Keep exploring to collect more badges!")
     badges = [
-        "Engineering Explorer", "Nature Enthusiast", "History Buff", "Culture Connoisseur"
+        {"name": "Engineering Explorer", "image": "https://via.placeholder.com/100", "collected": True},
+        {"name": "Nature Enthusiast", "image": "https://via.placeholder.com/100", "collected": False},
+        {"name": "History Buff", "image": "https://via.placeholder.com/100", "collected": False},
+        {"name": "Culture Connoisseur", "image": "https://via.placeholder.com/100", "collected": True}
     ]
     
-    for badge in badges:
-        st.markdown(f"- {badge}")
+    col1, col2, col3, col4 = st.columns(4)
+    columns = [col1, col2, col3, col4]
+    for idx, badge in enumerate(badges):
+        with columns[idx % 4]:
+            if badge["collected"]:
+                st.image(badge["image"], caption=badge["name"], use_container_width=True)
+            else:
+                st.markdown(f"<img src='{badge['image']}' style='filter: grayscale(100%); width: 100%;' alt='{badge['name']}'><div style='text-align: center;'>{badge['name']} (Locked)</div>", unsafe_allow_html=True)
 
 # Deals Page
 def view_deals():
@@ -117,6 +137,28 @@ def view_deals():
     
     for deal in deals:
         st.markdown(f"- {deal}")
+
+    st.markdown("### Your QR Code")
+    qr_data = "\n".join(deals)
+    qr_code = generate_qr_code(qr_data)
+    st.image(qr_code, caption="Scan this QR code to redeem your deals!", use_container_width=True)
+
+# Generate QR Code
+def generate_qr_code(data):
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(data)
+    qr.make(fit=True)
+    
+    img = qr.make_image(fill_color="black", back_color="white")
+    buffer = BytesIO()
+    img.save(buffer, format="PNG")
+    buffer.seek(0)
+    return buffer
 
 # About Page
 def about_page():
