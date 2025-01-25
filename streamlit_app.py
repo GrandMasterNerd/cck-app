@@ -16,8 +16,8 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    body {
-        background-color: #003153;  # Prussian Blue color code
+    body, .block-container {
+        background-color: #FF10F0 !important;  # Prussian Blue color code
     }
     </style>
     """, unsafe_allow_html=True
