@@ -1,7 +1,6 @@
 import streamlit as st
-import pandas as pd
 
-# Set page configuration (must be the first Streamlit command)
+# Set page configuration
 st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
 
 # Global state to store theme and location data
@@ -10,6 +9,7 @@ if 'theme' not in st.session_state:
 if 'location' not in st.session_state:
     st.session_state.location = None
 
+# Function to display the main content based on theme and location selection
 def main():
     st.markdown(
         """
@@ -41,10 +41,9 @@ def main():
         "<style>.sidebar .sidebar-content { background-color: #f5deb3; }</style>",
         unsafe_allow_html=True
     )
+    
     if st.sidebar.button("Start Exploring", key="start_button"):
         show_category_selection()
-    if st.session_state.theme and st.session_state.location:
-        show_theme_locations(st.session_state.theme)
 
 def show_category_selection():
     st.header("Select a Theme")
