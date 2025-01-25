@@ -14,220 +14,85 @@ import asyncio
 import websockets
 from threading import Thread
 
-# WebSocket server to handle messages
-async def handle_message(websocket, path):
-    async for message in websocket:
-        st.write(f"Received message: {message}")
-        await websocket.send("Message received")
-
-# Start WebSocket server in a separate thread
-def run_websocket_server():
-    asyncio.get_event_loop().run_until_complete(websockets.serve(handle_message, "0.0.0.0", 8765))
-    asyncio.get_event_loop().run_forever()
-
-# Start WebSocket server in a separate thread
-ws_thread = Thread(target=run_websocket_server)
-ws_thread.start()
-
 def main():
     st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
-
-    # Add custom styling for a game-like aesthetic
     st.markdown(
         """
         <style>
             body {
-                background-image: url('https://via.placeholder.com/1920x1080');
-                background-size: cover;
-                background-attachment: fixed;
-                color: #f1f1f1;
-                font-family: 'Trebuchet MS', sans-serif;
+                background-color: #f5deb3; /* Light brown background */
+                color: #4b2e05; 
+                font-family: 'Papyrus', sans-serif; 
             }
             .stButton>button {
-                background-color: #007ACC;
-                color: #f1f1f1;
-                font-size: 1.2rem;
-                border-radius: 12px;
-                padding: 10px 20px;
-                transition: transform 0.3s;
+                background-color: #d4af37; 
+                color: #4b2e05;
+                border: 2px solid #b8860b;
+                border-radius: 10px;
             }
             .stButton>button:hover {
-                transform: scale(1.1);
-                background-color: #005A99;
-            }
-            .sidebar .sidebar-content {
-                background-color: rgba(0, 0, 0, 0.7);
-                border-radius: 15px;
-                padding: 20px;
-            }
-            .stMarkdown h1 {
-                color: #FFD700;
-                font-family: 'Papyrus', fantasy;
-                text-align: center;
-                text-shadow: 2px 2px 5px #000;
+                background-color: #b8860b; 
+                color: white;
             }
         </style>
         """,
         unsafe_allow_html=True
     )
+    st.title("🧭 Compass Chronicles: Kingston")
 
-    # Header with a fun logo
-    st.markdown(
-        """
-        <h1>🎮 Welcome to Compass Chronicles: Kingston 🗺️</h1>
-        """,
+    # Sidebar for navigation
+    st.sidebar.title("Navigate")
+    st.sidebar.markdown(
+        "<style>.sidebar .sidebar-content { background-color: #f5deb3; }</style>",
         unsafe_allow_html=True
     )
+    st.button("Start Exploring", key="start_button", on_click=show_category_selection)
 
-    # Sidebar for navigation with a game-like menu
-    st.sidebar.title("📜 Quest Log")
-    st.sidebar.markdown("Choose your next adventure:")
-    page = st.sidebar.radio("Navigate:", [
-        "Home", "Explore Landmarks", "Your Badges", "Local Deals", "About"])
+def show_category_selection():
+    st.header("Select a Theme")
+    theme = st.radio("Choose a theme:", [
+        "Historical Landmarks", "Cultural Hotspots", "Nature Trails", "Engineering Feats"])
+    show_theme_locations(theme)
 
-    # Conditional navigation
-    if page == "Home":
-        home_page()
-    elif page == "Explore Landmarks":
-        explore_landmarks()
-    elif page == "Your Badges":
-        view_badges()
-    elif page == "Local Deals":
-        view_deals()
-    elif page == "About":
-        about_page()
-
-# Home Page
-def home_page():
-    st.markdown(
-        """
-        <h2>⚔️ Start Your Adventure!</h2>
-        <p>Use your phone as a compass to uncover landmarks, collect badges, and uncover Kingston's mysteries!</p>
-        <img src="https://via.placeholder.com/800x400" alt="Explore" style="width: 100%; border-radius: 15px;"/>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.markdown("### 🏆 Features")
-    st.markdown("- **Explore landmarks** and unlock hidden secrets.")
-    st.markdown("- **Collect badges** for completing quests.")
-    st.markdown("- **Earn rewards** at participating businesses.")
-    st.markdown("- **Navigate** and become a local hero.")
-
-    if st.button("⚡ Begin Adventure"):
-        st.balloons()
-
-# Landmarks Page
-def explore_landmarks():
-    st.markdown(
-        """
-        <h2>📍 Explore Landmarks</h2>
-        """,
-        unsafe_allow_html=True
-    )
-
-    # Simulated landmarks with dynamic styling
-    landmarks = {
-        "Beamish-Munro Hall": {
-            "distance": 0,
-            "image": "https://via.placeholder.com/400x300",
-            "description": "A hub of innovation and creativity at Queen's University."
-        },
-        "Stauffer Library": {
-            "distance": 500,
-            "image": "https://via.placeholder.com/400x300",
-            "description": "A grand library for knowledge seekers."
-        },
-        "Goodwin Hall": {
-            "distance": 300,
-            "image": "https://via.placeholder.com/400x300",
-            "description": "Home of advanced engineering at Queen's."
-        }
+def show_theme_locations(theme):
+    st.header(f"Explore {theme}")
+    st.markdown("Search for a location within this theme:")
+    locations = {
+        "Historical Landmarks": ["Fort Henry", "Kingston City Hall", "St. George's Cathedral"],
+        "Cultural Hotspots": ["The Isabel Bader Centre", "Grand Theatre", "Agnes Etherington Art Centre"],
+        "Nature Trails": ["Lemoine Point", "Little Cataraqui Creek", "Kingston Waterfront"],
+        "Engineering Feats": ["Beamish-Munro Hall", "Stauffer Library", "Goodwin Hall"]
     }
 
-    for name, details in landmarks.items():
-        st.markdown(f"**{name}**")
-        st.image(details["image"], caption=name, use_container_width=True)
-        st.markdown(f"**Distance:** {details['distance']}m")
-        st.markdown(f"**Description:** {details['description']}")
+    location = st.selectbox("Search Locations:", locations[theme])
+    st.markdown(f"**Selected Location:** {location}")
+    st.image("https://via.placeholder.com/800x400", caption=location, use_container_width=True)
 
-# Badges Page
-def view_badges():
-    st.markdown(
-        """
-        <h2>🏅 Your Badges</h2>
-        <p>Track your achievements and unlock new challenges!</p>
-        """,
-        unsafe_allow_html=True
-    )
+    # Example description for the location
+    descriptions = {
+        "Fort Henry": "Fort Henry is a 19th-century military fortification and a UNESCO World Heritage Site.",
+        "Kingston City Hall": "A historic building that is a symbol of Kingston's heritage.",
+        "St. George's Cathedral": "A prominent religious site with stunning architecture.",
+        "The Isabel Bader Centre": "A modern venue for arts and cultural events.",
+        "Grand Theatre": "A historic theatre hosting performances and events.",
+        "Agnes Etherington Art Centre": "An art gallery showcasing a range of collections.",
+        "Lemoine Point": "A beautiful nature area with trails and wildlife.",
+        "Little Cataraqui Creek": "A conservation area with scenic views and activities.",
+        "Kingston Waterfront": "A vibrant area with parks and stunning waterfront views.",
+        "Beamish-Munro Hall": "The heart of innovation at Queen's University.",
+        "Stauffer Library": "A hub for knowledge and research in Kingston.",
+        "Goodwin Hall": "Home to advanced engineering and applied science facilities."
+    }
 
-    badges = [
-        {"name": "Engineering Explorer", "image": "https://via.placeholder.com/100", "collected": True},
-        {"name": "Nature Enthusiast", "image": "https://via.placeholder.com/100", "collected": False},
-        {"name": "History Buff", "image": "https://via.placeholder.com/100", "collected": False},
-        {"name": "Culture Connoisseur", "image": "https://via.placeholder.com/100", "collected": True}
-    ]
-
-    col1, col2, col3, col4 = st.columns(4)
-    columns = [col1, col2, col3, col4]
-    for idx, badge in enumerate(badges):
-        with columns[idx % 4]:
-            if badge["collected"]:
-                st.image(badge["image"], caption=badge["name"], use_container_width=True)
-            else:
-                st.markdown(
-                    f"<img src='{badge['image']}' style='filter: grayscale(100%); width: 100%; border-radius: 15px;'>\n<div style='text-align: center;'>{badge['name']} (Locked)</div>",
-                    unsafe_allow_html=True
-                )
-
-# Deals Page
-def view_deals():
-    st.markdown(
-        """
-        <h2>💰 Local Deals</h2>
-        <p>Discover rewards from participating locations:</p>
-        """,
-        unsafe_allow_html=True
-    )
-
-    deals = [
-        "Show this screen at Common Ground Coffeehouse for 10% off any drink!",
-        "Get 20% off at The Grad Club after collecting 5 badges.",
-        "Exclusive discounts at participating Kingston shops!"
-    ]
-
-    for deal in deals:
-        st.markdown(f"- {deal}")
-
-    st.markdown("### Your QR Code")
-    qr_image_path = "https://via.placeholder.com/300"  # Replace with the actual QR code image
-    st.image(qr_image_path, caption="Scan this to redeem rewards!", use_container_width=True)
-
-# About Page
-def about_page():
-    st.markdown(
-        """
-        <h2>📜 About Compass Chronicles</h2>
-        <p>Immerse yourself in Kingston's rich history and culture with our interactive app!</p>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.markdown("- Built using Python, Streamlit, and GoDaddy.")
-    st.markdown("- Uses ESP8266 modules for precise location tracking.")
-    st.markdown("- Designed to make exploring fun and engaging!")
-    
-    st.markdown("### Our Mission")
-    st.markdown("To create unforgettable city exploration experiences for all ages.")
-
-if __name__ == "__main__":
-    main()
+    st.markdown(f"**Description:** {descriptions.get(location, 'No description available.')}")
 
 # Footer with Credits
 st.markdown(
     """
     ---
     **Developed by Nolan Verboomen, Adam Likogiannis, Eiqan Ahsan, and Aidan Murray**
-    """,
-    unsafe_allow_html=True
+    """
 )
+
+if __name__ == "__main__":
+    main()
