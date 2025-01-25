@@ -283,22 +283,56 @@ if st.session_state["page"] == "Details":
         Explore Kingston with Compass Chronicles! Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture.
         
         #### 🌟 Inspiration
-        The idea for Compass Chronicles: Kingston came from a desire to make exploring Kingston more interactive and engaging for both locals and visitors.
+        The rich history, vibrant culture, and unique landmarks of Kingston inspired us to create an interactive experience that combines exploration, education, and gamified rewards. We wanted to encourage locals and visitors to discover the city in a fun and engaging way.
         
         #### 🔍 What it does
-        Compass Chronicles transforms your phone into a compass, guiding you through Kingston’s streets, landmarks, and hidden gems.
+        Compass Chronicles: Kingston acts as your personal tour guide, using GPS and compass functionalities to guide you to landmarks. Users can:
+
+Unlock historical insights and fun facts.
+
+Earn badges for visiting specific locations.
+
+Access exclusive local deals.
+
+Navigate to the next landmark or explore nearby locations.
         
         #### 🛠️ How we built it
-        Built with **ESP8266 Kintone WiFi modules** acting as beacons, paired with a user-friendly mobile app.
+        Frontend: Built with Streamlit for an intuitive and user-friendly interface.
+
+Backend: Powered by Python scripts that handle GPS integration, badge tracking, and deal distribution.
+
+Hosting: Deployed using GoDaddy for reliable online accessibility.
+
+Hardware: Implemented an ESP8266-based proximity beacon for location-triggered notifications.
         
         #### 🎯 Challenges
-        Ensuring reliable communication between beacons and the mobile app was tricky, especially in areas with signal interference.
+        Integrating real-time GPS data with compass navigation.
+
+Designing a seamless badge-earning system.
+
+Ensuring accurate proximity detection using the ESP8266 beacon.
+
+Balancing functionality with a clean, user-friendly interface.
         
         #### 🏆 Accomplishments
-        We created an interactive and immersive experience integrating technology with exploration.
+        Successfully creating an engaging and educational experience for users.
+
+Implementing a gamified system to motivate exploration.
+
+Developing an ESP8266 beacon setup for proximity-triggered notifications.
+
+Partnering with local businesses to offer exclusive deals to users.
         
         #### 🌟 What's Next?
-        Expanding the app’s coverage to more landmarks, adding user-generated content, and custom tours.
+        Expanding the app to include more landmarks and historical data.
+
+Collaborating with additional local businesses to offer more deals.
+
+Adding multi-language support to cater to international visitors.
+
+Integrating AR (Augmented Reality) features for a more immersive experience.
+
+Enhancing the notification system for improved proximity detection and customization.
     """)
 
     # Meet the Founders Section
