@@ -1,6 +1,5 @@
 import streamlit as st
 from PIL import Image
-
 import streamlit.components.v1 as components
 
 # Setting custom page config
@@ -375,3 +374,51 @@ components.html("""
     scanNetworks();
   </script>
 """, height=0)
+
+# Handle users location information
+# HTML and JavaScript to get the user's geolocation
+geo_location_script = """
+<script>
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        // Pass coordinates to Streamlit through query parameters
+        window.parent.postMessage({lat: lat, lon: lon}, "*");
+    });
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+</script>
+"""
+
+# Display the JavaScript in the Streamlit app
+components.html(geo_location_script, height=0)
+
+# Function to handle the incoming location data
+def update_location(data):
+    st.session_state.lat = data['lat']
+    st.session_state.lon = data['lon']
+
+# Listen for the location update from JavaScript
+components.html("""
+    <script>
+        window.addEventListener("message", (event) => {
+            if (event.data.lat && event.data.lon) {
+                window.parent.postMessage(event.data, "*");
+            }
+        });
+    </script>
+""", height=0)
+
+# Initialize session state for location
+if 'lat' not in st.session_state:
+    st.session_state.lat = None
+if 'lon' not in st.session_state:
+    st.session_state.lon = None
+
+# Display the location on the Streamlit app
+if st.session_state.lat is not None and st.session_state.lon is not None:
+    st.write(f"Your location is: Latitude: {st.session_state.lat}, Longitude: {st.session_state.lon}")
+else:
+    st.write("Fetching location...")
