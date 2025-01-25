@@ -26,4 +26,5 @@ st.markdown(
 # st.title("🎈 My new app")
 st.title("Compass Chronicles: Kingston")
 st.write("Welcome to Compass Chronicles: Kingston")
+st.write("Test")
 st.image("res/Kingston-Overview.JPG")
