@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Get the query parameters
-query_params = st.experimental_get_query_params()
+query_params = st.query_params()
 
 # Check for the "signal" parameter
 if "signal" in query_params:
