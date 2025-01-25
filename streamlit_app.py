@@ -5,7 +5,10 @@ import pandas as pd
 st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
 
 # Global state to store theme and location data
-state = {"theme": None, "location": None}
+if 'theme' not in st.session_state:
+    st.session_state.theme = None
+if 'location' not in st.session_state:
+    st.session_state.location = None
 
 def main():
     st.markdown(
@@ -40,14 +43,14 @@ def main():
     )
     if st.sidebar.button("Start Exploring", key="start_button"):
         show_category_selection()
-    if state.get("theme") and state.get("location"):
-        show_theme_locations(state["theme"])
+    if st.session_state.theme and st.session_state.location:
+        show_theme_locations(st.session_state.theme)
 
 def show_category_selection():
     st.header("Select a Theme")
-    state["theme"] = st.radio("Choose a theme:", [
+    st.session_state.theme = st.radio("Choose a theme:", [
         "Historical Landmarks", "Cultural Hotspots", "Nature Trails", "Engineering Feats"])
-    show_theme_locations(state["theme"])
+    show_theme_locations(st.session_state.theme)
 
 def show_theme_locations(theme):
     st.header(f"Explore {theme}")
@@ -60,10 +63,10 @@ def show_theme_locations(theme):
         "Engineering Feats": ["Beamish-Munro Hall", "Stauffer Library", "Goodwin Hall"]
     }
 
-    # Handle the location selection dropdown
-    state["location"] = st.selectbox("Search Locations:", locations.get(theme, []))
-    if state["location"]:
-        show_location_details(state["location"])
+    # Update session_state to reflect the selected location
+    st.session_state.location = st.selectbox("Search Locations:", locations.get(theme, []))
+    if st.session_state.location:
+        show_location_details(st.session_state.location)
 
 def show_location_details(location):
     descriptions = {
