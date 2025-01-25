@@ -14,8 +14,6 @@ import asyncio
 import websockets
 from threading import Thread
 import pandas as pd
-import folium
-from streamlit_folium import st_folium
 
 # Set page configuration (must be the first Streamlit command)
 st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
@@ -117,9 +115,7 @@ def show_location_details(location):
 
     coord = coordinates.get(location)
     if coord:
-        m = folium.Map(location=coord, zoom_start=15)
-        folium.Marker(coord, popup=location).add_to(m)
-        st_folium(m, width=800, height=400)
+        st.map(pd.DataFrame([coord], columns=["lat", "lon"]))
 
 # Footer with Credits
 st.markdown(
