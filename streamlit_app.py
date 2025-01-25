@@ -41,7 +41,7 @@ st.markdown("""
 
 # Title and logo
 st.title("🧭 Compass Chronicles: Kingston")
-st.image("res/Compass_Logo.jpg", caption="Explore Kingston in a new way!", use_column_width=True)
+st.image("res/Compass_Logo.jpg", caption="Explore Kingston in a new way!", use_container_width=True)
 
 # Navigation menu
 menu = st.sidebar.selectbox("Explore", [
@@ -250,7 +250,7 @@ elif menu == "Landmarks":
     details = landmarks_data[category][landmark]  # Retrieve selected landmark details
 
     # Display landmark image and information
-    st.image(details["Image"], caption=landmark)
+    st.image(details["Image"], caption=landmark, use_container_width=True)
     st.write(f"**Distance:** {details['Distance']}")
     st.write(f"**Fun Fact:** {details['Fun Fact']}")
     st.write(f"**History:** {details['History']}")
@@ -271,15 +271,15 @@ elif menu == "Your Badges":
         image = data["Image"]
         collected = data["Collected"]
         if collected:
-            st.image(image, caption=badge)
+            st.image(image, caption=badge, use_container_width=True)
         else:
             greyed_out = Image.open(image).convert("LA")
-            st.image(greyed_out, caption=f"{badge} (Locked)")
+            st.image(greyed_out, caption=f"{badge} (Locked)", use_container_width=True)
 
 elif menu == "Local Deals":
     # Local Deals page: Display a list of current local deals the user can claim
     st.header("Local Deals")
-    st.image("res/qr_code.png", caption="Scan to Redeem Deals", use_column_width=True)
+    st.image("res/qr_code.png", caption="Scan to Redeem Deals", use_container_width=True)
     st.write("Show these screens to claim your deals:")
     st.write("- **Common Ground Coffeehouse:** 10% off any drink today!")
     st.write("- **The Grad Club:** Free appetizer with any meal!")
@@ -298,4 +298,4 @@ elif menu == "About the App":
 
     cols = st.columns(len(founder_images))
     for col, img, name in zip(cols, founder_images, founder_names):
-        col.image(img, caption=name, use_column_width=True)
+        col.image(img, caption=name, use_container_width=True)
