@@ -163,10 +163,30 @@ landmarks_data = {
             "Image": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Tett_Centre_Kingston.jpg",
             "History": "The J.K. Tett heritage building was renovated in 2015 to house the centre.",
             "Features": "Classes, workshops, exhibitions, and studio spaces for artists."
+        },
+        "Isabel Bader Centre": {
+            "Distance": "1700m",
+            "Fun Fact": "Named in honor of Isabel Bader, a patron of the arts.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Isabel_Bader_Centre_Kingston.jpg",
+            "History": "Opened in 2014, it has become a cornerstone of Kingston's cultural landscape.",
+            "Features": "566-seat concert hall, studio theatre, rehearsal spaces, and educational programs."
+        },
+        "Skeleton Park": {
+            "Distance": "1500m",
+            "Fun Fact": "Hosts the annual Skeleton Park Arts Festival.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/3/31/Skeleton_Park_Kingston.jpg",
+            "History": "Formerly a burial ground, now a vibrant community space.",
+            "Features": "Playground, sports facilities, open green spaces, and annual arts festival."
+        },
+        "Slush Puppie Place": {
+            "Distance": "1900m",
+            "Fun Fact": "Reflects a partnership between Slush Puppie Canada and Kingston.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/4/47/Slush_Puppie_Place_Kingston.jpg",
+            "History": "Opened as the K-Rock Centre in 2008, rebranded in 2023.",
+            "Features": "5,000-seat venue with premium seating, concessions, and modern amenities."
         }
     }
 }
-
 if menu == "Home":
     # Home page: Introduction to Compass Chronicles and what it offers
     st.header("Welcome to Compass Chronicles: Kingston!")
