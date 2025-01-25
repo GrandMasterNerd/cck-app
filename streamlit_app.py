@@ -1,9 +1,47 @@
 import streamlit as st
 from PIL import Image
 
+# Setting custom page config
+st.set_page_config(
+    page_title="Compass Chronicles: Kingston",
+    page_icon="🧭",
+    layout="centered",
+)
+
+# Custom CSS for styling
+st.markdown("""
+    <style>
+        body {
+            background-color: #f8f4e3;
+            font-family: 'Arial', sans-serif;
+        }
+        .main {
+            color: #3e2723;
+        }
+        h1, h2, h3 {
+            color: #3e2723;
+        }
+        .stButton button {
+            background-color: #8d6e63;
+            color: white;
+            border-radius: 10px;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+        .stButton button:hover {
+            background-color: #5d4037;
+        }
+        .stImage img {
+            border: 4px solid #6d4c41;
+            border-radius: 10px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # Title and logo
-st.title("Compass Chronicles: Kingston")
-st.image("res/Make a logo for this app_ Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture. Make a logo. Include the words _Compass.jpg", caption="Explore Kingston in a new way!")
+st.title("🧭 Compass Chronicles: Kingston")
+st.image("res/Compass_Logo.jpg", caption="Explore Kingston in a new way!", use_column_width=True)
 
 # Navigation menu
 menu = st.sidebar.selectbox("Explore", [
@@ -222,14 +260,26 @@ elif menu == "Your Badges":
     # Your Badges page: Display a list of badges the user has unlocked
     st.header("Your Badges")
     st.write("Collect badges by visiting landmarks!")
-    badges = ["Engineering Explorer", "History Buff", "Nature Lover"]
-    st.write("You have unlocked the following badges:")
-    for badge in badges:
-        st.write(f"- {badge}")
+    
+    badges = {
+        "Engineering Explorer": {"Image": "res/engineering_badge.png", "Collected": True},
+        "History Buff": {"Image": "res/history_badge.png", "Collected": False},
+        "Nature Lover": {"Image": "res/nature_badge.png", "Collected": True},
+    }
+
+    for badge, data in badges.items():
+        image = data["Image"]
+        collected = data["Collected"]
+        if collected:
+            st.image(image, caption=badge)
+        else:
+            greyed_out = Image.open(image).convert("LA")
+            st.image(greyed_out, caption=f"{badge} (Locked)")
 
 elif menu == "Local Deals":
     # Local Deals page: Display a list of current local deals the user can claim
     st.header("Local Deals")
+    st.image("res/qr_code.png", caption="Scan to Redeem Deals", use_column_width=True)
     st.write("Show these screens to claim your deals:")
     st.write("- **Common Ground Coffeehouse:** 10% off any drink today!")
     st.write("- **The Grad Club:** Free appetizer with any meal!")
@@ -242,3 +292,10 @@ elif menu == "About the App":
         Discover landmarks, learn fascinating facts, collect badges, and unlock local deals.
         Built with Python and Streamlit.
     """)
+    st.subheader("Meet the Founders")
+    founder_images = ["res/founder1.png", "res/founder2.png", "res/founder3.png"]
+    founder_names = ["Alex Carter", "Jamie Lee", "Morgan Taylor"]
+
+    cols = st.columns(len(founder_images))
+    for col, img, name in zip(cols, founder_images, founder_names):
+        col.image(img, caption=name, use_column_width=True)
