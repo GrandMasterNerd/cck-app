@@ -11,7 +11,6 @@
 import streamlit as st
 from streamlit.components.v1 import html
 import random
-import qrcode
 from io import BytesIO
 from PIL import Image
 
@@ -139,26 +138,8 @@ def view_deals():
         st.markdown(f"- {deal}")
 
     st.markdown("### Your QR Code")
-    qr_data = "\n".join(deals)
-    qr_code = generate_qr_code(qr_data)
-    st.image(qr_code, caption="Scan this QR code to redeem your deals!", use_container_width=True)
-
-# Generate QR Code
-def generate_qr_code(data):
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
-    )
-    qr.add_data(data)
-    qr.make(fit=True)
-    
-    img = qr.make_image(fill_color="black", back_color="white")
-    buffer = BytesIO()
-    img.save(buffer, format="PNG")
-    buffer.seek(0)
-    return buffer
+    qr_image_path = "your_qr_code_image.png"  # Replace with the actual path to your QR code image
+    st.image(qr_image_path, caption="Scan this QR code to redeem your deals!", use_container_width=True)
 
 # About Page
 def about_page():
