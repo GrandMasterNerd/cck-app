@@ -17,7 +17,7 @@ st.markdown(
     """
     <style>
     body, .block-container {
-        background-color: #FF10F0 !important;  # Neon Pink color code
+        background-color: ##000080 !important;  # Neon Pink color code
     }
     </style>
     """, unsafe_allow_html=True
