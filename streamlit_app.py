@@ -1,6 +1,5 @@
 import streamlit as st
 from PIL import Image
-import requests
 
 # Setting custom page config
 st.set_page_config(
@@ -212,24 +211,25 @@ landmarks_data = {
         }
     }
 }
-# Home Page
-if "Home" not in st.session_state:
+# Initialize session state
+if "page" not in st.session_state:
     st.session_state["page"] = "Home"
 
 if st.session_state["page"] == "Home":
     st.title("🧭 Compass Chronicles: Kingston")
-    st.image("res/Make a logo for this app_ Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture. Make a logo. Include the words _Compass.jpg", caption="Explore Kingston in a new way!", use_container_width=True)
-
+    st.image(
+        "https://example.com/logo.jpg",
+        caption="Explore Kingston in a new way!",
+        use_container_width=True
+    )
     st.header("Welcome to Compass Chronicles")
     st.write("""
         Use your phone as a compass to uncover Kingston's landmarks, collect badges, 
         access local deals, and learn about the city’s rich history and culture.
     """)
-
     if st.button("Start Exploring"):
         st.session_state["page"] = "Categories"
 
-# Categories and Landmarks Page
 if st.session_state["page"] == "Categories":
     st.header("Choose a Category")
     category = st.selectbox("Select a Category", list(landmarks_data.keys()))
@@ -245,9 +245,3 @@ if st.session_state["page"] == "Categories":
             st.write(f"**Fun Fact:** {details['Fun Fact']}")
             st.write(f"**History:** {details['History']}")
             st.write(f"**Features:** {details['Features']}")
-
-
-    st.image("https://placeholder-for-qr-code", caption="Scan to Redeem Deals", use_container_width=True)
-    st.write("Show these screens to claim your deals:")
-    st.write("- **Common Ground Coffeehouse:** 10% off any drink today!")
-    st.write("- **The Grad Club:** Free appetizer with any meal!")
