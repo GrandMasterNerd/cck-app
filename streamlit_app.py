@@ -245,8 +245,15 @@ if menu == "Home":
 
         if category in landmarks_data:
             st.subheader(f"Landmarks in {category}")
-            for landmark, details in landmarks_data[category].items():
-                st.write(f"- **{landmark}**: {details['Fun Fact']}")
+            landmark = st.selectbox("Select a Landmark", list(landmarks_data[category].keys()))
+            details = landmarks_data[category][landmark]
+
+            # Display landmark details
+            st.image(details["Image"], caption=landmark, use_container_width=True)
+            st.write(f"**Distance:** {details['Distance']}")
+            st.write(f"**Fun Fact:** {details['Fun Fact']}")
+            st.write(f"**History:** {details['History']}")
+            st.write(f"**Features:** {details['Features']}")
 
 elif menu == "Your Badges":
     # Your Badges page: Display a list of badges the user has unlocked
@@ -257,16 +264,18 @@ elif menu == "Your Badges":
         "Engineering Explorer": {"Image": "https://placeholder-for-engineering-badge", "Collected": True},
         "History Buff": {"Image": "https://placeholder-for-history-badge", "Collected": False},
         "Nature Lover": {"Image": "https://placeholder-for-nature-badge", "Collected": True},
+        "Cultural Enthusiast": {"Image": "https://placeholder-for-cultural-badge", "Collected": False},
     }
 
-    for badge, data in badges.items():
+    cols = st.columns(4)
+    for col, (badge, data) in zip(cols, badges.items()):
         image = data["Image"]
         collected = data["Collected"]
         if collected:
-            st.image(image, caption=badge, use_container_width=True)
+            col.image(image, caption=badge, use_container_width=True)
         else:
             greyed_out = Image.open(requests.get(image, stream=True).raw).convert("LA")
-            st.image(greyed_out, caption=f"{badge} (Locked)", use_container_width=True)
+            col.image(greyed_out, caption=f"{badge} (Locked)", use_container_width=True)
 
 elif menu == "Local Deals":
     # Local Deals page: Display a list of current local deals the user can claim
@@ -296,3 +305,4 @@ elif menu == "About the App":
     cols = st.columns(len(founder_images))
     for col, img, name in zip(cols, founder_images, founder_names):
         col.image(img, caption=name, use_container_width=True)
+
