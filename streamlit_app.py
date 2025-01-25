@@ -14,7 +14,7 @@ import random
 
 def main():
     st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
-    st.title("🧭 Compass Chronicles: Kingston")
+    st.title("🔍 Compass Chronicles: Kingston")
     
     # Sidebar for navigation
     st.sidebar.title("Navigate")
@@ -36,7 +36,7 @@ def main():
 def home_page():
     st.header("Welcome to Compass Chronicles!")
     st.markdown("Use your phone as a compass to uncover landmarks, collect badges, and discover Kingston's rich history and culture.")
-    st.image("res/Make a logo for this app_ Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture. Make a logo. Include the words _Compass.jpg", use_container_width=True)
+    st.image("https://via.placeholder.com/800x400", caption="Explore Kingston like never before!", use_container_width=True)
     
     st.markdown("### Features")
     st.markdown("- **Explore landmarks** and learn their history.")
@@ -49,27 +49,47 @@ def home_page():
 # Landmarks Page
 def explore_landmarks():
     categories = {
-        "Engineering": ["Beamish-Munro Hall", "Stauffer Library", "Goodwin Hall", "Jeffery Hall", "Ellis Hall", "Dupuis Hall"],
-        "Historical": ["Fort Henry", "Bellevue House", "Kingston City Hall", "Kingston Penitentiary", "Murney Tower", "Martello Alley"],
-        "Nature": ["Lake Ontario Park", "Lemoine Point", "Little Cataraqui Creek", "Portsmouth Olympic Harbour", "Battery Park", "Grass Creek Park"],
-        "Cultural": ["The Grand Theatre", "Tett Centre", "Isabel Bader Centre", "Skeleton Park", "Slush Puppie Place"]
+        "Engineer": [
+            {"name": "Beamish-Munro Hall", "distance": 0},
+            {"name": "Stauffer Library", "distance": 500},
+            {"name": "Goodwin Hall", "distance": 300},
+            {"name": "Jeffery Hall", "distance": 450},
+            {"name": "Ellis Hall", "distance": 250},
+            {"name": "Dupuis Hall", "distance": 600}
+        ],
+        "Historical": [
+            "Fort Henry", "Bellevue House", "Kingston City Hall", "Kingston Penitentiary", "Murney Tower", "Martello Alley"
+        ],
+        "Nature": [
+            "Lake Ontario Park", "Lemoine Point", "Little Cataraqui Creek Conservation Area", "Portsmouth Olympic Harbour", "Battery Park", "Grass Creek Park"
+        ],
+        "Cultural": [
+            "The Grand Theatre", "Tett Centre for Creativity and Learning", "Isabel Bader Centre", "Skeleton Park", "Slush Puppie Place"
+        ]
     }
     
     st.header("Explore Landmarks")
     category = st.selectbox("Choose a category:", categories.keys())
     
     for landmark in categories[category]:
-        st.subheader(landmark)
-        st.markdown(f"**Distance:** {random.randint(100, 1000)}m")
-        st.markdown("**Fun Fact:** Did you know? This is one of Kingston's most iconic landmarks.")
-        if st.button(f"Learn More about {landmark}"):
-            display_landmark_details(landmark)
+        if isinstance(landmark, dict):
+            name, distance = landmark["name"], landmark["distance"]
+            st.subheader(name)
+            st.markdown(f"**Distance:** {distance}m")
+            st.markdown("**Fun Fact:** Did you know? This is one of Kingston's most iconic landmarks.")
+            if st.button(f"Learn More about {name}"):
+                display_landmark_details(name)
+        else:
+            st.subheader(landmark)
+            st.markdown("**Fun Fact:** Did you know? This is one of Kingston's most iconic landmarks.")
+            if st.button(f"Learn More about {landmark}"):
+                display_landmark_details(landmark)
 
 # Landmark Details
 def display_landmark_details(landmark):
     st.sidebar.title(landmark)
     st.markdown(f"### Welcome to {landmark}!")
-    st.image("https://via.placeholder.com/800x400", caption=f"{landmark}", use_column_width=True)
+    st.image("https://via.placeholder.com/800x400", caption=f"{landmark}", use_container_width=True)
     st.markdown("- **History:** This landmark has a rich history.")
     st.markdown("- **Features:** Beautiful architecture, great stories, and more.")
 
