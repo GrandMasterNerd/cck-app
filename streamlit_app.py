@@ -1,5 +1,5 @@
 #
-# Streamlight App
+# Streamlit App
 # Authors: Nolan Verboomen, Adam Likogiannis, Eiqan Ahsan 
 #          and Aidan Murray
 # Purpose: App connects to "beacons" placed at iconic landmarks
@@ -12,12 +12,12 @@
 
 import streamlit as st
 
-# Add custom CSS to change the background color to Neon Pink and adjust margins
+# Add custom CSS to change the background color to Navy Blue
 st.markdown(
     """
     <style>
     body, .block-container {
-        background-color: ##000080 !important;  # Neon Pink color code
+        background-color: ##000080 !important;  # Navy Blue color code
     }
     </style>
     """, unsafe_allow_html=True
