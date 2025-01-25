@@ -36,7 +36,7 @@ def main():
 def home_page():
     st.header("Welcome to Compass Chronicles!")
     st.markdown("Use your phone as a compass to uncover landmarks, collect badges, and discover Kingston's rich history and culture.")
-    st.image("res/Make a logo for this app_ Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture. Make a logo. Include the words _Compass.jpg", use_column_width=True)
+    st.image("res/Make a logo for this app_ Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture. Make a logo. Include the words _Compass.jpg", use_container_width=True)
     
     st.markdown("### Features")
     st.markdown("- **Explore landmarks** and learn their history.")
