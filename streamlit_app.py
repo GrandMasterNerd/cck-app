@@ -365,7 +365,7 @@ components.html("""
       if (navigator.bluetooth) {
         navigator.bluetooth.requestDevice({acceptAllDevices: true})
           .then(device => {
-            if(device.name == "ESP8266_Network") {
+            if(device.name == "ESP8266_Beacon") {
               alert("You are near the ESP8266!");
             }
           })
