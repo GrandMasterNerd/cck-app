@@ -14,7 +14,7 @@ import random
 
 def main():
     st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
-    st.title("🔍 Compass Chronicles: Kingston")
+    st.title("🧭 Compass Chronicles: Kingston")
     
     # Sidebar for navigation
     st.sidebar.title("Navigate")
