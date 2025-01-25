@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image
+import requests
 
 # Setting custom page config
 st.set_page_config(
@@ -232,35 +233,26 @@ if menu == "Home":
         Use your phone as a compass to uncover Kingston's landmarks, collect badges, 
         access local deals, and learn about the city’s rich history and culture.
     """)
-    st.image("https://placeholder-for-home-image", caption="Discover Kingston")
 
-elif menu == "Categories":
-    # Categories page: Allow the user to select a category to explore
-    st.header("Choose a Category")
-    categories = ["Engineer", "Historical", "Nature", "Cultural"]
-    category = st.selectbox("Explore by Category", categories)
-    st.write(f"You selected the {category} category.")
+    if st.button("Start Exploring"):  # Large button to navigate to categories
+        st.session_state["navigate_to_categories"] = True
 
-elif menu == "Landmarks":
-    # Landmarks page: Allow the user to select a category and landmark to see details
-    st.header("Landmarks")
-    category = st.selectbox("Select a Category", list(landmarks_data.keys()))  # Category selection
-    landmark = st.selectbox("Select a Landmark", list(landmarks_data[category].keys()))  # Landmark selection
+    if st.session_state.get("navigate_to_categories", False):
+        st.header("Choose a Category")
+        categories = ["Engineer", "Historical", "Nature", "Cultural"]
+        category = st.selectbox("Explore by Category", categories)
+        st.write(f"You selected the {category} category.")
 
-    details = landmarks_data[category][landmark]  # Retrieve selected landmark details
-
-    # Display landmark image and information
-    st.image(details["Image"], caption=landmark, use_container_width=True)
-    st.write(f"**Distance:** {details['Distance']}")
-    st.write(f"**Fun Fact:** {details['Fun Fact']}")
-    st.write(f"**History:** {details['History']}")
-    st.write(f"**Features:** {details['Features']}")
+        if category in landmarks_data:
+            st.subheader(f"Landmarks in {category}")
+            for landmark, details in landmarks_data[category].items():
+                st.write(f"- **{landmark}**: {details['Fun Fact']}")
 
 elif menu == "Your Badges":
     # Your Badges page: Display a list of badges the user has unlocked
     st.header("Your Badges")
     st.write("Collect badges by visiting landmarks!")
-    
+
     badges = {
         "Engineering Explorer": {"Image": "https://placeholder-for-engineering-badge", "Collected": True},
         "History Buff": {"Image": "https://placeholder-for-history-badge", "Collected": False},
@@ -293,8 +285,13 @@ elif menu == "About the App":
         Built with Python and Streamlit.
     """)
     st.subheader("Meet the Founders")
-    founder_images = ["https://placeholder-for-founder1", "https://placeholder-for-founder2", "https://placeholder-for-founder3"]
-    founder_names = ["Alex Carter", "Jamie Lee", "Morgan Taylor"]
+    founder_images = [
+        "https://placeholder-for-nolan", 
+        "https://placeholder-for-adam", 
+        "https://placeholder-for-eiqan", 
+        "https://placeholder-for-aidan"
+    ]
+    founder_names = ["Nolan Verboomen", "Adam Likogiannis", "Eiqan Ahsan", "Aidan Murray"]
 
     cols = st.columns(len(founder_images))
     for col, img, name in zip(cols, founder_images, founder_names):
