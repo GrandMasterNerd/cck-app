@@ -244,7 +244,7 @@ if "page" not in st.session_state:
 # Home Page
 if st.session_state["page"] == "Home":
     st.image(
-        "https://example.com/logo.jpg",  # Replace with actual logo URL
+        "res/Make a logo for this app_ Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture. Make a logo. Include the words _Compass.jpg",  # Replace with actual logo URL
         caption="🧭 Compass Chronicles: Kingston",
         use_container_width=True
     )
