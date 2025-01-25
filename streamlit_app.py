@@ -14,6 +14,21 @@ import asyncio
 import websockets
 from threading import Thread
 
+# WebSocket server to handle messages
+async def handle_message(websocket, path):
+    async for message in websocket:
+        st.write(f"Received message: {message}")
+        await websocket.send("Message received")
+
+# Start WebSocket server in a separate thread
+def run_websocket_server():
+    asyncio.get_event_loop().run_until_complete(websockets.serve(handle_message, "0.0.0.0", 8765))
+    asyncio.get_event_loop().run_forever()
+
+# Start WebSocket server in a separate thread
+ws_thread = Thread(target=run_websocket_server)
+ws_thread.start()
+
 def main():
     st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
 
