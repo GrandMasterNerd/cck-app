@@ -12,12 +12,14 @@
 
 import streamlit as st
 
-# Add custom CSS to change the background color to Prussian Blue
+# Add custom CSS to change the background color to Neon Pink and adjust margins
 st.markdown(
     """
     <style>
     body, .block-container {
-        background-color: #FF10F0 !important;  # Prussian Blue color code
+        background-color: #FF10F0 !important;  # Neon Pink color code
+        margin: 0 !important;  # Remove default margin
+        padding: 0 !important;  # Remove default padding
     }
     </style>
     """, unsafe_allow_html=True
