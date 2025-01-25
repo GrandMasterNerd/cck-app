@@ -1,6 +1,16 @@
 import streamlit as st
 import pandas as pd
 
+# Get the query parameters
+query_params = st.experimental_get_query_params()
+
+# Check for the "signal" parameter
+if "signal" in query_params:
+    signal = query_params["signal"][0]  # Retrieve the first value of "signal"
+    st.success(f"Received signal: {signal}")
+else:
+    st.info("No signal received yet.")
+
 # Set page configuration (must be the first Streamlit command)
 st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
 
