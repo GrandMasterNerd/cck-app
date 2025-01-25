@@ -246,31 +246,7 @@ if st.session_state["page"] == "Categories":
             st.write(f"**History:** {details['History']}")
             st.write(f"**Features:** {details['Features']}")
 
-elif menu == "Your Badges":
-    # Your Badges page: Display a list of badges the user has unlocked
-    st.header("Your Badges")
-    st.write("Collect badges by visiting landmarks!")
 
-    badges = {
-        "Engineering Explorer": {"Image": "https://placeholder-for-engineering-badge", "Collected": True},
-        "History Buff": {"Image": "https://placeholder-for-history-badge", "Collected": False},
-        "Nature Lover": {"Image": "https://placeholder-for-nature-badge", "Collected": True},
-        "Cultural Enthusiast": {"Image": "https://placeholder-for-cultural-badge", "Collected": False},
-    }
-
-    cols = st.columns(4)
-    for col, (badge, data) in zip(cols, badges.items()):
-        image = data["Image"]
-        collected = data["Collected"]
-        if collected:
-            col.image(image, caption=badge, use_container_width=True)
-        else:
-            greyed_out = Image.open(requests.get(image, stream=True).raw).convert("LA")
-            col.image(greyed_out, caption=f"{badge} (Locked)", use_container_width=True)
-
-elif menu == "Local Deals":
-    # Local Deals page: Display a list of current local deals the user can claim
-    st.header("Local Deals")
     st.image("https://placeholder-for-qr-code", caption="Scan to Redeem Deals", use_container_width=True)
     st.write("Show these screens to claim your deals:")
     st.write("- **Common Ground Coffeehouse:** 10% off any drink today!")
