@@ -23,7 +23,13 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
+completion = 0      # Percent of "badges" earned by visiting different city locations
+
 st.title("Compass Chronicles: Kingston")
 st.write("Welcome to Compass Chronicles: Kingston")
 st.image("res/Kingston-Overview.JPG")
-st.progress(50)
+
+message = "You have found {}%% of badges".format(completion)
+st.write(message)
+st.progress(completion)
+
