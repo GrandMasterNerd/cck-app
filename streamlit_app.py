@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered",
 )
 
-# Custom CSS for styling
+# Custom CSS for styling and animations
 st.markdown("""
     <style>
         body {
@@ -17,9 +17,13 @@ st.markdown("""
         }
         .main {
             color: #3e2723;
+            font-size: 18px;
+            animation: fadeIn 2s ease-in;
         }
         h1, h2, h3 {
             color: #3e2723;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: bounce 1.5s infinite alternate;
         }
         .stButton button {
             background-color: #8d6e63;
@@ -28,9 +32,11 @@ st.markdown("""
             border: none;
             padding: 8px 16px;
             cursor: pointer;
+            transition: transform 0.2s;
         }
         .stButton button:hover {
             background-color: #5d4037;
+            transform: scale(1.1);
         }
         .stImage img {
             border: 4px solid #6d4c41;
@@ -42,6 +48,19 @@ st.markdown("""
             padding: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
+            animation: slideIn 2s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
         }
     </style>
 """, unsafe_allow_html=True)
@@ -231,25 +250,26 @@ if st.session_state["page"] == "Home":
     )
     st.header("Welcome to Compass Chronicles")
     st.write("""
-        Use your phone as a compass to uncover Kingston's landmarks, collect badges, 
-        access local deals, and learn about the city’s rich history and culture.
+        **Embark on an Adventure!**  
+        Use your phone as a compass to uncover hidden treasures around Kingston.  
+        Discover landmarks, collect badges, unlock deals, and immerse yourself in history and culture!
     """)
-    if st.button("Learn More About Compass Chronicles"):
-        st.session_state["page"] = "Details"
-    elif st.button("Start Exploring"):
+    if st.button("Start Exploring"):
         st.session_state["page"] = "Categories"
     elif st.button("Promotions"):
         st.session_state["page"] = "Promotions"
+    elif st.button("Project Details"):
+        st.session_state["page"] = "Details"
 
 # Promotions Page
 if st.session_state["page"] == "Promotions":
-    st.header("Promotions")
+    st.header("🏷️ Exclusive Deals!")
     st.image(
         "https://placeholder-for-qr-code", 
-        caption="Scan to Redeem Deals", 
+        caption="📱 Scan to Redeem Deals", 
         use_container_width=True
     )
-    st.write("Show these screens to claim your deals:")
+    st.write("🎉 Show these screens to claim your treasure:")
     st.write("- **Common Ground Coffeehouse:** 10% off any drink today!")
     st.write("- **The Grad Club:** Free appetizer with any meal!")
     if st.button("Back to Home"):
@@ -257,39 +277,54 @@ if st.session_state["page"] == "Promotions":
 
 # Project Details Page
 if st.session_state["page"] == "Details":
-    st.header("Project Details")
+    st.header("📜 Project Details")
     st.markdown("""
+        #### 🚀 Elevator Pitch
         Explore Kingston with Compass Chronicles! Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture.
         
-        #### Inspiration
-        The idea for Compass Chronicles: Kingston came from a desire to make exploring Kingston more interactive and engaging for both locals and visitors. 
+        #### 🌟 Inspiration
+        The idea for Compass Chronicles: Kingston came from a desire to make exploring Kingston more interactive and engaging for both locals and visitors.
         
-        #### What it does
-        Compass Chronicles: Kingston transforms your phone into a compass, guiding you through Kingston’s streets, landmarks, and hidden gems. 
+        #### 🔍 What it does
+        Compass Chronicles transforms your phone into a compass, guiding you through Kingston’s streets, landmarks, and hidden gems.
         
-        #### How we built it
-        The project is built using **ESP8266 Kintone WiFi modules** acting as beacons that work in tandem with a mobile app. 
+        #### 🛠️ How we built it
+        Built with **ESP8266 Kintone WiFi modules** acting as beacons, paired with a user-friendly mobile app.
         
-        #### Challenges we ran into
-        Ensuring reliable communication between the beacons and the mobile app, especially in areas with interference, was challenging. 
+        #### 🎯 Challenges
+        Ensuring reliable communication between beacons and the mobile app was tricky, especially in areas with signal interference.
         
-        #### Accomplishments
-        We successfully created an interactive and immersive experience integrating technology with real-world exploration.
+        #### 🏆 Accomplishments
+        We created an interactive and immersive experience integrating technology with exploration.
         
-        #### What's next
-        We plan to expand the app’s coverage to more landmarks and attractions in Kingston, incorporating custom tours or user-generated content.
+        #### 🌟 What's Next?
+        Expanding the app’s coverage to more landmarks, adding user-generated content, and custom tours.
     """)
+
+    # Meet the Founders Section
+    st.subheader("🤝 Meet the Founders")
+    founders = {
+        "Nolan Verboomen": "https://via.placeholder.com/150",
+        "Adam Likogiannis": "https://via.placeholder.com/150",
+        "Aidan Murray": "https://via.placeholder.com/150",
+        "Eiqan Ahsan": "https://via.placeholder.com/150"
+    }
+    cols = st.columns(len(founders))
+    for col, (name, img_url) in zip(cols, founders.items()):
+        with col:
+            st.image(img_url, caption=name, use_column_width=True)
+
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
 
 # Categories and Landmarks Page
 if st.session_state["page"] == "Categories":
-    st.header("Choose a Category")
-    category = st.selectbox("Select a Category", list(landmarks_data.keys()))
+    st.header("🗺️ Choose Your Adventure")
+    category = st.selectbox("📂 Select a Category", list(landmarks_data.keys()))
 
     if category:
-        st.subheader(f"Landmarks in {category}")
-        landmark = st.selectbox("Select a Landmark", list(landmarks_data[category].keys()))
+        st.subheader(f"📍 Landmarks in {category}")
+        landmark = st.selectbox("🏛️ Select a Landmark", list(landmarks_data[category].keys()))
 
         if landmark:
             details = landmarks_data[category][landmark]
