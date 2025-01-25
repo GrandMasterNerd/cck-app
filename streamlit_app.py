@@ -1,43 +1,12 @@
 import streamlit as st
 from PIL import Image
 
-from flask import Flask, request
-from threading import Thread
-import time
-
 # Setting custom page config
 st.set_page_config(
     page_title="Compass Chronicles: Kingston",
     page_icon="🧭",
     layout="centered",
 )
-
-# Initialize Flask app
-flask_app = Flask(__name__)
-
-# Shared variable to store the signal
-signal = None
-
-# Flask route to handle the GET request
-@flask_app.route('/get_signal', methods=['GET'])
-def get_signal():
-    global signal
-    signal = request.args.get('signal', None)
-    if signal:
-        print(f"Received signal: {signal}")  # You can print the signal in the terminal
-    return "Signal received"
-
-# Function to run Flask app in a separate thread
-def run_flask():
-    flask_app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
-
-# Start the Flask server in a separate thread
-thread = Thread(target=run_flask)
-thread.daemon = True  # Ensure the thread ends when the main program ends
-thread.start()
-
-# Create a placeholder for the signal message
-signal_placeholder = st.empty()
 
 # Custom CSS for styling and animations
 st.markdown("""
@@ -386,12 +355,3 @@ if st.session_state["page"] == "Categories":
 
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
-
-# Streamlit will poll for the latest signal every 2 seconds
-while True:
-    if signal:
-        signal_placeholder.success(f"Received signal: {signal}")
-    else:
-        signal_placeholder.info("Waiting for signal...")
-    
-    time.sleep(2)  # Wait 2 seconds before checking for the signal again
