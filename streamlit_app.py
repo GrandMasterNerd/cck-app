@@ -60,7 +60,7 @@ landmarks_data = {
       "History": "Completed in 1966 and named after Nathan Fellowes Dupuis, an influential professor at Queen's.",
       "Features": "Classrooms and an auditorium, with modern lecture capture systems and display cables."
     }
-  },
+  }
     "Historical": {
     "Fort Henry": {
       "Distance": "4600m",
@@ -104,7 +104,7 @@ landmarks_data = {
       "History": "A neglected passageway transformed into a vibrant art gallery.",
       "Features": "Original and printed artwork from local artists, and the chance to meet them in person."
     }
-  },
+  }
     "Nature": {
     "Lake Ontario Park": {
       "Distance": "3900m",
@@ -148,7 +148,7 @@ landmarks_data = {
       "History": "A popular natural retreat for locals, established along the St. Lawrence River.",
       "Features": "Sandy beach, picnic tables, hiking trails, and an off-leash dog area."
     }
-  },
+  }
     "Cultural": {
     "The Grand Theatre": {
       "Distance": "1000m",
