@@ -3,7 +3,7 @@ from PIL import Image
 
 # Title and logo
 st.title("Compass Chronicles: Kingston")
-st.image("https://cck-app.streamlit.app/logo.png", caption="Explore Kingston in a new way!")
+st.image("res/Make a logo for this app_ Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture. Make a logo. Include the words _Compass.jpg", caption="Explore Kingston in a new way!")
 
 # Navigation menu
 menu = st.sidebar.selectbox("Explore", [
