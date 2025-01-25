@@ -14,15 +14,33 @@ from streamlit.components.v1 import html
 def main():
     st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
     st.markdown(
-        "<style>body { background-color: #f5deb3; color: #4b2e05; font-family: 'Papyrus', sans-serif; }</style>",
+        """
+        <style>
+            body {
+                background-color: #f8e8c1; 
+                color: #4b2e05; 
+                font-family: 'Papyrus', sans-serif; 
+            }
+            .stButton>button {
+                background-color: #d4af37; 
+                color: #4b2e05;
+                border: 2px solid #b8860b;
+                border-radius: 10px;
+            }
+            .stButton>button:hover {
+                background-color: #b8860b; 
+                color: white;
+            }
+        </style>
+        """,
         unsafe_allow_html=True
     )
-    st.title("🗺️ Compass Chronicles: Kingston")
+    st.title("🧭 Compass Chronicles: Kingston")
 
     # Sidebar for navigation
     st.sidebar.title("Navigate")
     st.sidebar.markdown(
-        "<style>.sidebar .sidebar-content { background-color: #d2b48c; }</style>",
+        "<style>.sidebar .sidebar-content { background-color: #f5deb3; }</style>",
         unsafe_allow_html=True
     )
     page = st.sidebar.radio("Go to:", [
@@ -115,7 +133,7 @@ def view_deals():
         st.markdown(f"- {deal}")
 
     st.markdown("### Your QR Code")
-    qr_image_path = "your_qr_code_image.png"  # Replace with the actual path to your QR code image
+    qr_image_path = "https://via.placeholder.com/300"  # Replace with the actual path to your QR code image
     st.image(qr_image_path, caption="Scan this QR code to redeem your deals!", use_container_width=True)
 
 # About Page
