@@ -2,7 +2,7 @@ import streamlit as st
 from PIL import Image
 
 # Get the query parameters
-query_params = st.experimental_get_query_params()
+query_params = st.get_query_params()
 
 # Check for the "signal" parameter
 if "signal" in query_params:
