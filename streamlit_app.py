@@ -259,7 +259,6 @@ if st.session_state["page"] == "Promotions":
 if st.session_state["page"] == "Details":
     st.header("Project Details")
     st.markdown("""
-        #### Elevator Pitch
         Explore Kingston with Compass Chronicles! Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture.
         
         #### Inspiration
