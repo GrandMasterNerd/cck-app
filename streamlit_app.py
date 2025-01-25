@@ -265,7 +265,7 @@ if st.session_state["page"] == "Home":
 if st.session_state["page"] == "Promotions":
     st.header("🏷️ Exclusive Deals!")
     st.image(
-        "https://placeholder-for-qr-code", 
+        "https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg", 
         caption="📱 Scan to Redeem Deals", 
         use_container_width=True
     )
