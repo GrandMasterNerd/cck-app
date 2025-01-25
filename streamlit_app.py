@@ -25,7 +25,7 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
-# Add custom CSS to change the background color, remove margins, and hide GitHub-related elements
+# Add custom CSS to change background color and hide header/footer elements
 st.markdown(
     """
     <style>
@@ -35,20 +35,21 @@ st.markdown(
         padding: 0 !important;  # Remove default padding
     }
 
-    /* Hide the Streamlit header */
-    header { 
+    /* Hide the header */
+    .css-1d391kg {  
         display: none !important;  
     }
 
-    /* Hide the Streamlit footer */
-    footer { 
-        display: none !important; 
+    /* Hide the footer */
+    .css-1k8p3ln { 
+        display: none !important;
     }
 
     /* Hide the GitHub button at the bottom */
-    .css-18e3t6o {  
-        display: none !important;  
+    .css-1s7veaj {  
+        display: none !important;
     }
+
     </style>
     """, unsafe_allow_html=True
 )
