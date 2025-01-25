@@ -269,7 +269,7 @@ if st.session_state["page"] == "Promotions":
         caption="📱 Scan to Redeem Deals", 
         use_container_width=True
     )
-    st.write("🎉 Show these screens to claim your treasure:")
+    st.write("🎉 Show this screen to claim your treasure:")
     st.write("- **Common Ground Coffeehouse:** 10% off any drink today!")
     st.write("- **The Grad Club:** Free appetizer with any meal!")
     if st.button("Back to Home"):
