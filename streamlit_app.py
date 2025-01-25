@@ -1,15 +1,4 @@
 import streamlit as st
-import pandas as pd
-
-# Get the query parameters
-query_params = st.experimental_get_query_params()
-
-# Check for the "signal" parameter
-if "signal" in query_params:
-    signal = query_params["signal"][0]  # Retrieve the first value of "signal"
-    st.success(f"Received signal: {signal}")
-else:
-    st.info("No signal received yet.")
 
 # Set page configuration (must be the first Streamlit command)
 st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
@@ -20,6 +9,7 @@ if 'theme' not in st.session_state:
 if 'location' not in st.session_state:
     st.session_state.location = None
 
+# Function to display the main content based on theme and location selection
 def main():
     st.markdown(
         """
@@ -51,10 +41,9 @@ def main():
         "<style>.sidebar .sidebar-content { background-color: #f5deb3; }</style>",
         unsafe_allow_html=True
     )
+    
     if st.sidebar.button("Start Exploring", key="start_button"):
         show_category_selection()
-    if st.session_state.theme and st.session_state.location:
-        show_theme_locations(st.session_state.theme)
 
 def show_category_selection():
     st.header("Select a Theme")
