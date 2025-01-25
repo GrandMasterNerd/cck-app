@@ -283,57 +283,42 @@ if st.session_state["page"] == "Details":
         Explore Kingston with Compass Chronicles! Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture.
         
         #### 🌟 Inspiration
-        The rich history, vibrant culture, and unique landmarks of Kingston inspired us to create an interactive experience that combines exploration, education, and gamified rewards. We wanted to encourage locals and visitors to discover the city in a fun and engaging way.
+        Inspired by Kingston's rich history, vibrant culture, and unique landmarks, we created an interactive experience that blends exploration, education, and gamified rewards. Our goal is to encourage locals and visitors to discover the city in a fun and engaging way.
         
-        #### 🔍 What it does
-        Compass Chronicles: Kingston acts as your personal tour guide, using GPS and compass functionalities to guide you to landmarks. Users can:
+        #### 🔍 What It Does
+        Compass Chronicles: Kingston acts as your personal tour guide, utilizing GPS and compass functionalities to navigate you to landmarks. Key features include:
 
-Unlock historical insights and fun facts.
-
-Earn badges for visiting specific locations.
-
-Access exclusive local deals.
-
-Navigate to the next landmark or explore nearby locations.
+        - Unlocking historical insights and fun facts.
+        - Earning badges for visiting specific locations.
+        - Accessing exclusive local deals.
+        - Navigating to the next landmark or exploring nearby spots.
         
-        #### 🛠️ How we built it
-        Frontend: Built with Streamlit for an intuitive and user-friendly interface.
-
-Backend: Powered by Python scripts that handle GPS integration, badge tracking, and deal distribution.
-
-Hosting: Deployed using GoDaddy for reliable online accessibility.
-
-Hardware: Implemented an ESP8266-based proximity beacon for location-triggered notifications.
+        #### 🛠️ How We Built It
+        - **Frontend:** Built with Streamlit for an intuitive and user-friendly interface.
+        - **Backend:** Powered by Python scripts for GPS integration, badge tracking, and deal distribution.
+        - **Hosting:** Deployed using GoDaddy for reliable online accessibility.
+        - **Hardware:** Implemented an ESP8266-based proximity beacon for location-triggered notifications.
         
         #### 🎯 Challenges
-        Integrating real-time GPS data with compass navigation.
-
-Designing a seamless badge-earning system.
-
-Ensuring accurate proximity detection using the ESP8266 beacon.
-
-Balancing functionality with a clean, user-friendly interface.
+        - Integrating real-time GPS data with compass navigation.
+        - Designing a seamless badge-earning system.
+        - Ensuring accurate proximity detection using the ESP8266 beacon.
+        - Balancing functionality with a clean, user-friendly interface.
         
         #### 🏆 Accomplishments
-        Successfully creating an engaging and educational experience for users.
-
-Implementing a gamified system to motivate exploration.
-
-Developing an ESP8266 beacon setup for proximity-triggered notifications.
-
-Partnering with local businesses to offer exclusive deals to users.
+        - Created an engaging and educational user experience.
+        - Developed a gamified system to motivate exploration.
+        - Set up an ESP8266 beacon for proximity-triggered notifications.
+        - Partnered with local businesses to offer exclusive deals to users.
         
         #### 🌟 What's Next?
-        Expanding the app to include more landmarks and historical data.
-
-Collaborating with additional local businesses to offer more deals.
-
-Adding multi-language support to cater to international visitors.
-
-Integrating AR (Augmented Reality) features for a more immersive experience.
-
-Enhancing the notification system for improved proximity detection and customization.
+        - Expanding the app to include more landmarks and historical data.
+        - Collaborating with additional local businesses for more deals.
+        - Adding multi-language support for international visitors.
+        - Integrating AR (Augmented Reality) features for an even more immersive experience.
+        - Enhancing the notification system for improved proximity detection and customization.
     """)
+
 
     # Meet the Founders Section
     st.subheader("🤝 Meet the Founders")
