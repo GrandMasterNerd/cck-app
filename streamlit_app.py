@@ -326,7 +326,7 @@ if st.session_state["page"] == "Details":
         "Nolan Verboomen": "res/IMG_4330 (2).jpg",
         "Adam Likogiannis": "https://via.placeholder.com/150",
         "Aidan Murray": "res/image (10).png",
-        "Eiqan Ahsan": "res/Headshot (2).PNG"
+        "Eiqan Ahsan": "res/eiqanheadshot.png"
     }
     cols = st.columns(len(founders))
     for col, (name, img_url) in zip(cols, founders.items()):
