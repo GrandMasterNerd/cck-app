@@ -324,7 +324,7 @@ if st.session_state["page"] == "Details":
     st.subheader("🤝 Meet the Founders")
     founders = {
         "Nolan Verboomen": "res/nolanheadshot.jpg",
-        "Adam Likogiannis": "res/IMG_0116.jpg",
+        "Adam Likogiannis": "res/IMG_0116.2.jpg",
         "Aidan Murray": "res/image (10).png",
         "Eiqan Ahsan": "res/eiqanheadshot.png"
     }
