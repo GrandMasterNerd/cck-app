@@ -251,25 +251,3 @@ if st.session_state["page"] == "Categories":
     st.write("Show these screens to claim your deals:")
     st.write("- **Common Ground Coffeehouse:** 10% off any drink today!")
     st.write("- **The Grad Club:** Free appetizer with any meal!")
-
-elif menu == "About the App":
-    # About the App page: Information about the app's purpose and technology stack
-    st.header("About Compass Chronicles")
-    st.write("""
-        Compass Chronicles: Kingston is your ultimate guide to exploring the city. 
-        Discover landmarks, learn fascinating facts, collect badges, and unlock local deals.
-        Built with Python and Streamlit.
-    """)
-    st.subheader("Meet the Founders")
-    founder_images = [
-        "https://placeholder-for-nolan", 
-        "https://placeholder-for-adam", 
-        "https://placeholder-for-eiqan", 
-        "https://placeholder-for-aidan"
-    ]
-    founder_names = ["Nolan Verboomen", "Adam Likogiannis", "Eiqan Ahsan", "Aidan Murray"]
-
-    cols = st.columns(len(founder_images))
-    for col, img, name in zip(cols, founder_images, founder_names):
-        col.image(img, caption=name, use_container_width=True)
-
