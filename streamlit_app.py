@@ -14,8 +14,10 @@ import asyncio
 import websockets
 from threading import Thread
 
+# Set page configuration (must be the first Streamlit command)
+st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
+
 def main():
-    st.set_page_config(page_title="Compass Chronicles: Kingston", layout="wide")
     st.markdown(
         """
         <style>
