@@ -18,7 +18,7 @@ st.markdown(
     """
     <style>
     body {
-        background-color: #000080 !important;  # Navy Blue
+        background-color: #003153 !important;  # Navy Blue
     }
     </style>
     """, unsafe_allow_html=True
@@ -27,5 +27,4 @@ st.markdown(
 # st.title("🎈 My new app")
 st.title("Compass Chronicles: Kingston")
 st.write("Welcome to Compass Chronicles: Kingston")
-st.write("Test")
 st.image("res/Kingston-Overview.JPG")
