@@ -25,6 +25,28 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
+# Add custom CSS to change background color, remove margins, and hide the GitHub elements
+st.markdown(
+    """
+    <style>
+    body, .block-container {
+        background-color: #FF10F0 !important;  # Neon Pink color code
+        margin: 0 !important;  # Remove default margin
+        padding: 0 !important;  # Remove default padding
+    }
+
+    /* Hide the Streamlit header and footer (GitHub section) */
+    .css-1v0mbdj {  # Streamlit header class
+        visibility: hidden;
+    }
+
+    .css-1ij6c1g {  # Streamlit footer class (GitHub button area)
+        visibility: hidden;
+    }
+    </style>
+    """, unsafe_allow_html=True
+)
+
 # st.title("🎈 My new app")
 st.title("Compass Chronicles: Kingston")
 st.write("Welcome to Compass Chronicles: Kingston")
