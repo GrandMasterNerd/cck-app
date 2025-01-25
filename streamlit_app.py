@@ -3,6 +3,7 @@ from PIL import Image
 
 from flask import Flask, request
 from threading import Thread
+import time
 
 # Setting custom page config
 st.set_page_config(
@@ -35,11 +36,8 @@ thread = Thread(target=run_flask)
 thread.daemon = True  # Ensure the thread ends when the main program ends
 thread.start()
 
-# Display the received signal if available
-if signal:
-    st.success(f"Received signal: {signal}")
-else:
-    st.info("Waiting for signal...")
+# Create a placeholder for the signal message
+signal_placeholder = st.empty()
 
 # Custom CSS for styling and animations
 st.markdown("""
@@ -388,3 +386,12 @@ if st.session_state["page"] == "Categories":
 
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
+
+# Streamlit will poll for the latest signal every 2 seconds
+while True:
+    if signal:
+        signal_placeholder.success(f"Received signal: {signal}")
+    else:
+        signal_placeholder.info("Waiting for signal...")
+    
+    time.sleep(2)  # Wait 2 seconds before checking for the signal again
