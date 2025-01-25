@@ -64,17 +64,45 @@ landmarks_data = {
     "Historical": {
         "Fort Henry": {
             "Distance": "4600m",
-            "Fun Fact": "Built to protect the Rideau Canal.",
+            "Fun Fact": "The fort and Point Henry are named after Henry Hamilton, who was the Lieutenant Governor of Quebec. The fort cost 70,000 British pounds sterling to build, which is about $35 million in modern Canadian currency.",
             "Image": "https://www.tripsavvy.com/thmb/_Jk2Q-Mww_1DvT68onhqZX_QmaQ=/2573x2038/filters:no_upscale()/max_bytes(150000):strip_icc()/FortHenry-59f0e1d8d088c00010f2c09a.jpg",
-            "History": "19th-century British military fortress, replacing an earlier fortification from the War of 1812.",
-            "Features": "Guided tours, live demonstrations of artillery drills, and interactive exhibits."
+            "History": "Fort Henry in Kingston, Ontario, Canada is a 19th-century British military fortress that protected the Rideau Canal and the town of Kingston. The fort was built to replace an earlier fortification from the War of 1812.",
+            "Features": "Fort Henry offers guided tours that immerse visitors in the daily life of a 19th-century military fort. Guests can explore interactive exhibits, watch live demonstrations of artillery drills, and enjoy stunning views of the Kingston waterfront from the fort's ramparts. The site also features a museum, gift shop, and on-site café to complete the experience."
         },
         "Bellevue House": {
             "Distance": "1400m",
-            "Fun Fact": "Home to Canada’s first Prime Minister, Sir John A. Macdonald.",
+            "Fun Fact": "Bellevue House was once home to Sir John A. Macdonald, Canada’s first Prime Minister, and is one of the few remaining examples of Italianate villa architecture in the country. The house’s unique design includes a picturesque tower, decorative verandas, and a sprawling garden.",
             "Image": "https://media-cdn.tripadvisor.com/media/photo-s/0f/db/05/7c/canada-s-1st-pm-jamacdoanld.jpg",
-            "History": "Built in the 1840s, Bellevue House was designated a National Historic Site for its connection to Macdonald.",
-            "Features": "Guided tours, restored 1840s rooms, and exhibits about Canada’s early political history."
+            "History": "Built in the 1840s, Bellevue House served as the residence of Macdonald during a pivotal period in his political career. The house was later designated a National Historic Site to commemorate its connection to one of Canada’s most influential leaders.",
+            "Features": "Bellevue House offers guided tours that delve into the life and legacy of Sir John A. Macdonald, with interpreters dressed in period attire. Visitors can explore restored rooms furnished to reflect the 1840s, stroll through beautifully landscaped grounds, and engage with exhibits that highlight Canada’s early political history. A visitor center and gift shop are also available on-site."
+        },
+        "Kingston City Hall": {
+            "Distance": "1500m",
+            "Fun Fact": "Kingston City Hall, completed in 1844, was designed by architect George Browne in the Neoclassical style, featuring a prominent dome and tholobate. It was designated a National Historic Site of Canada in 1961.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Kingston_City_Hall.JPG/800px-Kingston_City_Hall.JPG",
+            "History": "Originally serving as a city hall, market, custom house, post office, police station, and jail, the building reflects Kingston's status as the capital of the Province of Canada at the time of its construction.",
+            "Features": "Kingston City Hall houses municipal offices and the council chambers. The building is open to the public during regular business hours, offering self-guided tours of public spaces on the first and second floors. Visitors can explore the Market Wing Cultural Space, which hosts exhibitions and programming that share diverse and inclusive stories of Kingston. The adjacent Confederation Park features a large arch with a fountain and the Confederation Basin Marina, enhancing the city's waterfront experience."
+        },
+        "Kingston Penitentiary": {
+            "Distance": "2200m",
+            "Fun Fact": "Kingston Penitentiary, established in 1835, is Canada's oldest maximum-security prison and housed some of the nation's most notorious criminals over its 178-year history.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Kingston_Penitentiary.jpg",
+            "History": "Constructed in 1833-1834 and opening its doors on June 1, 1835, Kingston Penitentiary was designed to be self-sustaining, featuring its own quarries and farm.",
+            "Features": "Visitors can explore the penitentiary's original cellblocks, workshops, and guard towers, offering a glimpse into the daily life of inmates and the prison's operations. Guided tours provide in-depth insights into the facility's history, architecture, and the stories of its former inhabitants. The site also includes the former warden's residence, now the Canada’s Penitentiary Museum, and the former deputy warden’s house, now the Isabel McNeil House."
+        },
+        "Murney Tower": {
+            "Distance": "800m",
+            "Fun Fact": "Murney Tower, constructed in 1846, is one of the finest Martello towers in North America. It was designed to defend Kingston Harbour during the Oregon Crisis of 1845-46.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/6/60/Murney_Tower.jpg",
+            "History": "Originally built as a military fortification, Murney Tower has served various purposes over the years, including as a barracks and a prison. Since 1925, it has operated as a museum, showcasing artifacts from 19th-century Kingston.",
+            "Features": "The tower features a circular gun platform designed to hold two cannons, a 24-pounder and a 32-pounder. Only the 32-pounder Blomefield cannon was ever installed, and it remains at the tower today. Visitors can explore three floors displaying military and domestic artifacts, including a gunpowder magazine and various store rooms. The lower level also features the gunpowder magazine and various store rooms. The museum offers guided tours, audio tours, educational programs, special events, and exhibits."
+        },
+        "Martello Alley": {
+            "Distance": "1500m",
+            "Fun Fact": "Martello Alley, located at 203 B Wellington Street in downtown Kingston, is an art-themed historic alley inspired by La Rue du Trésor in Québec City. It offers a unique art shopping experience designed for any budget and any style or size of space.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Martello_Alley_Kingston.jpg",
+            "History": "Once a neglected passageway, Martello Alley has been transformed into a vibrant art gallery showcasing the works of local artists. The alley features original and printed artwork, providing a space to meet the artists and see their work in progress.",
+            "Features": "Visitors can explore a variety of art forms, including paintings, prints, and other creative works, all displayed in a charming courtyard rich with local history and seasonal landscape design. The gallery is open daily from 10:00 am to 5:00 pm, with artists on duty to engage with visitors. For those unable to visit in person, Martello Alley offers a virtual shop accessible through their website."
         }
     },
     "Nature": {
@@ -82,15 +110,43 @@ landmarks_data = {
             "Distance": "3900m",
             "Fun Fact": "Kingston’s largest urban waterfront park, revitalized in 2013.",
             "Image": "https://www.cityofkingston.ca/documents/10180/12235/ontario-park.jpg",
-            "History": "Established in 1894, it serves as a major natural space for Kingston residents.",
-            "Features": "Sandy beach, walking paths, picnic areas, splash pad, boat launch, and fishing areas."
+            "History": "Established in 1894, the park has evolved into a significant natural landscape, drawing both visitors and residents for picnicking and scenic walks along the waterfront.",
+            "Features": "The park offers a sandy beach area, a splash pad, and a playground for children. Visitors can enjoy walking and cycling paths, a boat launch, picnic tables, and barbecue facilities. The park also features a waterfront terrace lookout, public fishing areas, and accessible washrooms."
         },
         "Lemoine Point": {
             "Distance": "12200m",
             "Fun Fact": "Home to a variety of ecosystems, including forests, wetlands, and meadows.",
             "Image": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Lemoine_Point_Conservation_Area.jpg",
-            "History": "Established in 1992 to protect and showcase the area's natural beauty.",
-            "Features": "Over 10 kilometers of trails, scenic views of Lake Ontario, and opportunities for birdwatching and fishing."
+            "History": "Established in 1992, Lemoine Point Conservation Area was developed to protect and showcase the area's natural beauty. It serves as a vital green space for both wildlife and the local community.",
+            "Features": "The park offers over 10 kilometers of trails suitable for walking, cycling, and birdwatching. Visitors can enjoy scenic views of Lake Ontario, access to the waterfront, and opportunities for fishing. The area also features picnic spots and educational signage about local flora and fauna."
+        },
+        "Little Cataraqui Creek Conservation Area": {
+            "Distance": "7000m",
+            "Fun Fact": "A 136-hectare park offering diverse ecosystems for exploration.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/0/09/Little_Cataraqui_Creek_Conservation_Area.jpg",
+            "History": "Developed in 1992 to protect the area's natural landscapes.",
+            "Features": "Walking and cycling trails, birdwatching, and fishing opportunities."
+        },
+        "Portsmouth Olympic Harbour": {
+            "Distance": "3100m",
+            "Fun Fact": "Built for the 1976 Olympics and continues to host Olympic Training Regattas.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Portsmouth_Olympic_Harbour.jpg",
+            "History": "Built for the 1976 Olympics, still serving as a major regatta venue.",
+            "Features": "250 slip docks, fuel services, pump-out facilities, and meeting rooms."
+        },
+        "Battery Park": {
+            "Distance": "1200m",
+            "Fun Fact": "Named after the Mississauga Battery that once occupied the site.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Battery_Park_Kingston.jpg",
+            "History": "Developed to revitalize Kingston’s waterfront, with ties to historical military use.",
+            "Features": "Waterfront pathways, scenic views, and community events."
+        },
+        "Grass Creek Park": {
+            "Distance": "17100m",
+            "Fun Fact": "Home to the MacLachlan Woodworking Museum, hosting exhibits and programming from May to September.",
+            "Image": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Grass_Creek_Park_Kingston.jpg",
+            "History": "A popular natural retreat for locals, established along the St. Lawrence River.",
+            "Features": "Sandy beach, picnic tables, hiking trails, and an off-leash dog area."
         }
     },
     "Cultural": {
