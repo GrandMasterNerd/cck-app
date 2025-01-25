@@ -41,7 +41,7 @@ st.markdown("""
 
 # Title and logo
 st.title("🧭 Compass Chronicles: Kingston")
-st.image("res/Compass_Logo.jpg", caption="Explore Kingston in a new way!", use_container_width=True)
+st.image("https://placeholder-for-logo-image", caption="Explore Kingston in a new way!", use_container_width=True)
 
 # Navigation menu
 menu = st.sidebar.selectbox("Explore", [
@@ -232,7 +232,7 @@ if menu == "Home":
         Use your phone as a compass to uncover Kingston's landmarks, collect badges, 
         access local deals, and learn about the city’s rich history and culture.
     """)
-    st.image("https://cck-app.streamlit.app/home_image.png", caption="Discover Kingston")
+    st.image("https://placeholder-for-home-image", caption="Discover Kingston")
 
 elif menu == "Categories":
     # Categories page: Allow the user to select a category to explore
@@ -262,9 +262,9 @@ elif menu == "Your Badges":
     st.write("Collect badges by visiting landmarks!")
     
     badges = {
-        "Engineering Explorer": {"Image": "res/engineering_badge.png", "Collected": True},
-        "History Buff": {"Image": "res/history_badge.png", "Collected": False},
-        "Nature Lover": {"Image": "res/nature_badge.png", "Collected": True},
+        "Engineering Explorer": {"Image": "https://placeholder-for-engineering-badge", "Collected": True},
+        "History Buff": {"Image": "https://placeholder-for-history-badge", "Collected": False},
+        "Nature Lover": {"Image": "https://placeholder-for-nature-badge", "Collected": True},
     }
 
     for badge, data in badges.items():
@@ -273,13 +273,13 @@ elif menu == "Your Badges":
         if collected:
             st.image(image, caption=badge, use_container_width=True)
         else:
-            greyed_out = Image.open(image).convert("LA")
+            greyed_out = Image.open(requests.get(image, stream=True).raw).convert("LA")
             st.image(greyed_out, caption=f"{badge} (Locked)", use_container_width=True)
 
 elif menu == "Local Deals":
     # Local Deals page: Display a list of current local deals the user can claim
     st.header("Local Deals")
-    st.image("res/qr_code.png", caption="Scan to Redeem Deals", use_container_width=True)
+    st.image("https://placeholder-for-qr-code", caption="Scan to Redeem Deals", use_container_width=True)
     st.write("Show these screens to claim your deals:")
     st.write("- **Common Ground Coffeehouse:** 10% off any drink today!")
     st.write("- **The Grad Club:** Free appetizer with any meal!")
@@ -293,7 +293,7 @@ elif menu == "About the App":
         Built with Python and Streamlit.
     """)
     st.subheader("Meet the Founders")
-    founder_images = ["res/founder1.png", "res/founder2.png", "res/founder3.png"]
+    founder_images = ["https://placeholder-for-founder1", "https://placeholder-for-founder2", "https://placeholder-for-founder3"]
     founder_names = ["Alex Carter", "Jamie Lee", "Morgan Taylor"]
 
     cols = st.columns(len(founder_images))
