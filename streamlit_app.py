@@ -35,9 +35,6 @@ thread = Thread(target=run_flask)
 thread.daemon = True  # Ensure the thread ends when the main program ends
 thread.start()
 
-# Streamlit UI
-st.title("ESP8266 Signal Receiver")
-
 # Display the received signal if available
 if signal:
     st.success(f"Received signal: {signal}")
