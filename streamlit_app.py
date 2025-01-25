@@ -1,18 +1,4 @@
-# Streamlit App
-# Authors: Nolan Verboomen, Adam Likogiannis, Eiqan Ahsan 
-#          and Aidan Murray
-# Purpose: App connects to "beacons" placed at iconic landmarks
-#          around the city. Using HTTPS messages, sends data
-#          to the app which lets the app know which
-#          landmark the user is at. App shows the user 
-#          the history of the landmark, including 
-#          pictures, videos, audio, etc.
-
 import streamlit as st
-from streamlit.components.v1 import html
-import asyncio
-import websockets
-from threading import Thread
 import pandas as pd
 
 # Set page configuration (must be the first Streamlit command)
@@ -66,6 +52,7 @@ def show_category_selection():
 def show_theme_locations(theme):
     st.header(f"Explore {theme}")
     st.markdown("Search for a location within this theme:")
+
     locations = {
         "Historical Landmarks": ["Fort Henry", "Kingston City Hall", "St. George's Cathedral"],
         "Cultural Hotspots": ["The Isabel Bader Centre", "Grand Theatre", "Agnes Etherington Art Centre"],
@@ -73,7 +60,8 @@ def show_theme_locations(theme):
         "Engineering Feats": ["Beamish-Munro Hall", "Stauffer Library", "Goodwin Hall"]
     }
 
-    state["location"] = st.selectbox("Search Locations:", locations[theme])
+    # Handle the location selection dropdown
+    state["location"] = st.selectbox("Search Locations:", locations.get(theme, []))
     if state["location"]:
         show_location_details(state["location"])
 
