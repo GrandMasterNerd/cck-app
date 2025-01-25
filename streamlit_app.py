@@ -218,7 +218,7 @@ if "Home" not in st.session_state:
 
 if st.session_state["page"] == "Home":
     st.title("🧭 Compass Chronicles: Kingston")
-    st.image("https://placeholder-for-logo-image", caption="Explore Kingston in a new way!", use_container_width=True)
+    st.image("res/Make a logo for this app_ Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture. Make a logo. Include the words _Compass.jpg", caption="Explore Kingston in a new way!", use_container_width=True)
 
     st.header("Welcome to Compass Chronicles")
     st.write("""
