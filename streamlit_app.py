@@ -36,6 +36,13 @@ st.markdown("""
             border: 4px solid #6d4c41;
             border-radius: 10px;
         }
+        .info-card {
+            background-color: #f9f4ec;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -215,6 +222,7 @@ landmarks_data = {
 if "page" not in st.session_state:
     st.session_state["page"] = "Home"
 
+# Home Page
 if st.session_state["page"] == "Home":
     st.title("🧭 Compass Chronicles: Kingston")
     st.image(
@@ -227,9 +235,33 @@ if st.session_state["page"] == "Home":
         Use your phone as a compass to uncover Kingston's landmarks, collect badges, 
         access local deals, and learn about the city’s rich history and culture.
     """)
+    st.write("### Project Details")
+    st.markdown("""
+        #### Elevator Pitch
+        Explore Kingston with Compass Chronicles! Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture.
+        
+        #### Inspiration
+        The idea for Compass Chronicles: Kingston came from a desire to make exploring Kingston more interactive and engaging for both locals and visitors. With a growing trend in immersive, location-based experiences, we wanted to create a way for people to not only discover the city's landmarks but to learn its history, culture, and stories in a fun, gamified way. 
+        
+        #### What it does
+        Compass Chronicles: Kingston transforms your phone into a compass, guiding you through Kingston’s streets, landmarks, and hidden gems. As you explore, the app delivers engaging multimedia content, including historical stories, images, and videos. Users can collect badges, uncover local deals, and stay updated on city events - all while immersing themselves in Kingston’s rich heritage and vibrant culture.
+        
+        #### How we built it
+        The project is built using **ESP8266 Kintone WiFi modules** acting as beacons that work in tandem with a mobile app. The app delivers content when you’re near specific landmarks, and the beacon system ensures precise location tracking for a seamless experience.
+        
+        #### Challenges we ran into
+        Ensuring reliable communication between the beacons and the mobile app, especially in areas with interference, was challenging. Additionally, creating enough compelling and informative content that would appeal to both tourists and locals was difficult but rewarding.
+        
+        #### Accomplishments
+        We successfully created an interactive and immersive experience that integrates technology with real-world exploration. The ability for users to explore Kingston while collecting badges, learning about its history, and supporting local businesses makes us proud.
+        
+        #### What we learned
+        We learned about the technical aspects of beacon technology and the importance of storytelling in making historical and cultural content more engaging. 
+    """)
     if st.button("Start Exploring"):
         st.session_state["page"] = "Categories"
 
+# Categories and Landmarks Page
 if st.session_state["page"] == "Categories":
     st.header("Choose a Category")
     category = st.selectbox("Select a Category", list(landmarks_data.keys()))
@@ -245,3 +277,8 @@ if st.session_state["page"] == "Categories":
             st.write(f"**Fun Fact:** {details['Fun Fact']}")
             st.write(f"**History:** {details['History']}")
             st.write(f"**Features:** {details['Features']}")
+
+    st.image("https://placeholder-for-qr-code", caption="Scan to Redeem Deals", use_container_width=True)
+    st.write("Show these screens to claim your deals:")
+    st.write("- **Common Ground Coffeehouse:** 10% off any drink today!")
+    st.write("- **The Grad Club:** Free appetizer with any meal!")
