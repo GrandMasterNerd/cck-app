@@ -365,6 +365,11 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://cck-app-91eee-default-rtdb.firebaseio.com/'
 })
 
+number = 5
+
+ref = db.reference('numbers/score')  # This will store the number under 'numbers/score'
+ref.set(number)
+
 # Fetch number from Firebase Realtime Database
 ref = db.reference('your/data/reference')
 number = ref.get()
