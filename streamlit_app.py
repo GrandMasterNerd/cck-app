@@ -343,12 +343,6 @@ if st.session_state["page"] == "Details":
 # Categories and Landmarks Page
 if st.session_state["page"] == "Categories":
     st.header("🗺️ Choose Your Adventure")
-    total_landmarks = sum(len(landmarks) for landmarks in landmarks_data.values())
-visited_count = len(st.session_state.get("visited_landmarks", []))
-progress = visited_count / total_landmarks if total_landmarks > 0 else 0
-st.progress(progress)
-
-
     category = st.selectbox("📂 Select a Category", list(landmarks_data.keys()))
 
     if category:
@@ -363,39 +357,8 @@ st.progress(progress)
             st.write(f"**History:** {details['History']}")
             st.write(f"**Features:** {details['Features']}")
 
-            if st.button(f"Mark {landmark} as Visited"):
-                if landmark not in st.session_state["visited_landmarks"]:
-                    st.session_state["visited_landmarks"].append(landmark)
-                    st.success(f"You have visited {landmark}!")
-                else:
-                    st.info(f"You have already visited {landmark}.")
-
-        display_badges()
-
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
-
-# Gamification: Progress Bar and Badges
-if "visited_landmarks" not in st.session_state:
-    st.session_state["visited_landmarks"] = []
-
-total_landmarks = sum(len(landmarks) for landmarks in landmarks_data.values())
-visited_count = len(st.session_state["visited_landmarks"])
-progress = visited_count / total_landmarks
-
-st.subheader("🎖️ Your Adventure Progress")
-st.progress(progress)
-st.write(f"Visited Landmarks: {visited_count}/{total_landmarks}")
-
-if st.session_state["visited_landmarks"]:
-    st.write("🏅 Collected Badges:")
-    cols = st.columns(min(len(st.session_state["visited_landmarks"]), 5))
-    for col, badge in zip(cols, st.session_state["visited_landmarks"]):
-        with col:
-            st.image("https://via.placeholder.com/100", caption=badge, use_container_width=True)
-else:
-    st.write("No badges collected yet. Start exploring!")
-
 
 # Access Firebase credentials from Streamlit secrets
 firebase_cred = {
@@ -443,3 +406,4 @@ if st.button('Save Number to Firebase'):
 if st.button('Read Number from Firebase'):
     number = read_number_from_firebase()
     st.write(f'Number from Firebase: {number}')
+
