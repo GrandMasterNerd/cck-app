@@ -80,51 +80,45 @@ landmarks_data = {
     "Engineer": {
         "Beamish-Munro Hall": {
             "Distance": "0m",
-            "Fun Fact": "Beamish-Munro Hall contains the Integrated Learning Centre and is the home of the Stephen J.R. Smith Faculty of Engineering and Applied Science at Queen’s University.",
-            "History": "Beamish-Munro Hall opened its doors in May 2004 and was recognized by the Sustainable Buildings '05 Canadian Team as one of the most environmentally advanced buildings in Canada in 2005.",
-            "Features": "Beamish-Munro Hall was designed as a 'live building' to lean into the integrated learning component for engineering students. The building is constructed so that students can see structural elements of the building that are typically hidden and monitor systems such as air quality, heating, lighting, and cooling via specially designed software, demonstrating how sustainable practices can be integrated into building design. Contained in the building is a design studio, a prototyping centre, group rooms, a multimedia facility, a site investigation facility, active learning centre and plazas or lab facilities.",
-            "Latitude": 44.2280082,
-            "Longitude": -76.4927247
+            "Fun Fact": "Contains the Integrated Learning Centre and the Stephen J.R. Smith Faculty of Engineering and Applied Science.",
+            "Image": "https://bharchitects.com/wp-content/uploads/2017/01/Queens-University-Beamish-Munro_Hero.jpg",
+            "History": "Opened in 2004, recognized as one of the most environmentally advanced buildings in Canada in 2005.",
+            "Features": "Designed as a 'live building', showing structural elements and sustainable practices, with a design studio, prototyping center, multimedia facility, and more."
         },
         "Joseph S. Stauffer Library": {
             "Distance": "550m",
-            "Fun Fact": "Stauffer Library is the biggest library on Queen’s campus, with five floors and room for approximately 1.5 million volumes, six kilometres of bookstacks, and study and research space for over 1,200 students.",
-            "History": "The library was constructed with a substantial donation from the Stauffer Foundation, enabling the creation of a state-of-the-art facility to support the university's academic community.",
-            "Features": "Stauffer Library provides a variety of study spaces, including group study tables and individual study carrels. It also offers computers, scanners, photocopiers, and printers for student use. The library is home to the Adaptive Technology Centre, which includes Library Accessibility Services, an Adaptive Technology Lab, and offices for the Adaptive Technologist and Accessibility Coordinator. Elevators in the library are wheelchair accessible, with controls inside the elevators being Brailled.",
-            "Latitude": 44.2285509,
-            "Longitude": -76.496171
+            "Fun Fact": "The largest library on Queen’s campus, with room for approximately 1.5 million volumes.",
+            "Image": "https://www.queensu.ca/encyclopedia/sites/qencwww/files/uploaded_images/s/staufferlibrary/b-stauff.jpg",
+            "History": "Constructed with a substantial donation from the Stauffer Foundation, supports Queen's academic community.",
+            "Features": "Various study spaces, including group and individual spaces, and home to the Adaptive Technology Centre."
         },
         "Goodwin Hall": {
             "Distance": "230m",
-            "Fun Fact": "In 1989, Goodwin Hall was connected to the newly constructed Walter Light Hall, creating a multi-million dollar technology center to accommodate the growing needs of the Department of Electrical and Computer Engineering.",
-            "History": "Completed in 1972, it is named after William Lawton Goodwin, the first director of the School of Mining and Agriculture, the precursor to the Faculty of Engineering and Applied Science. Goodwin Hall houses the Robert M. Buchan Department of Mining, the School of Computing, and the Human Mobility Research Centre, a collaboration between Queen's University and Kingston Health Sciences Centre.",
-            "Features": "The building offers specialized laboratories, including the Human Media Lab, which features a 16-by-9 feet interactive flexible display with gesture technology.",
-            "Latitude": 44.2279564,
-            "Longitude": -76.492418
+            "Fun Fact": "In 1989, it was connected to Walter Light Hall to create a multi-million dollar technology center.",
+            "Image": "https://www.queensu.ca/encyclopedia/sites/qencwww/files/uploaded_images/g/goodwinhall/b-goodw.jpg",
+            "History": "Completed in 1972 and named after William Lawton Goodwin, the first director of the School of Mining and Agriculture.",
+            "Features": "Houses specialized labs including the Human Media Lab, with advanced interactive technology."
         },
         "Jeffery Hall": {
             "Distance": "450m",
-            "Fun Fact": "The building was designed with three floors underground and three floors above ground to preserve the view of Grant Hall's tower across University Avenue.",
-            "History": "Completed in 1969, it is named after Ralph L. Jeffery, Head of Mathematics and Chair of Graduate Studies from 1943 to 1960. Jeffery Hall houses the Department of Mathematics and Statistics, providing specialized facilities for students and faculty.",
-            "Features": "The building offers a variety of classrooms equipped with modern technology and flexible seating arrangements to accommodate different teaching and learning styles. From tiered lecture halls to active learning spaces, Jeffery Hall provides a range of room options to support educational activities.",
-            "Latitude": 44.2259069,
-            "Longitude": -76.4960893
+            "Fun Fact": "Designed with three floors underground to preserve the view of Grant Hall's tower.",
+            "Image": "https://rjbourgon.com/wp-content/uploads/2021/09/Jeffrey-Hall-1-1080x720.jpg",
+            "History": "Completed in 1969, named after Ralph L. Jeffery, Head of Mathematics from 1943 to 1960.",
+            "Features": "Classrooms with modern technology and flexible seating, offering various room options for teaching."
         },
         "Ellis Hall": {
             "Distance": "400m",
-            "Fun Fact": "Ellis Hall houses the Queen's Observatory, which is situated on its roof.",
-            "History": "Completed in 1958, it is named after Douglas Stewart Ellis, a distinguished professor of Civil Engineering and former Dean of Applied Science at Queen's. Constructed to alleviate the pressure on the Engineering faculty due to increased demand for scientific courses post-World War II, Ellis Hall has long been home to the Department of Civil Engineering and the Queen's Observatory.",
-            "Features": "The building offers several classrooms equipped with modern teaching technologies, including document cameras, lecture capture systems, wireless presentation capabilities, and room PCs. Notably, Room 324 is designed as a high-tech, team-based active learning classroom, featuring a height-adjustable podium with microphones and display cables.",
-            "Latitude": 44.2263388,
-            "Longitude": -76.4962195
+            "Fun Fact": "Houses the Queen's Observatory on its roof.",
+            "Image": "https://www.queensu.ca/encyclopedia/sites/qencwww/files/uploaded_images/e/ellishall/b-ellis.jpg",
+            "History": "Completed in 1958, named after Douglas Stewart Ellis, former Dean of Applied Science at Queen’s.",
+            "Features": "Modern classrooms with teaching technologies, including high-tech active learning classrooms."
         },
         "Dupuis Hall": {
             "Distance": "220m",
-            "Fun Fact": "The exterior of Dupuis Hall features decorative limestone facing, a design choice made to appease those who preferred traditional architectural elements on campus.",
-            "History": "Dupuis Hall was completed in 1966 and is named after Nathan Fellowes Dupuis, an influential professor of mathematics at Queen's in the late 19th and early 20th centuries, and a founder of the engineering and applied science faculty.",
-            "Features": "The building houses several classrooms and an auditorium, including Room 215, which is equipped with a podium, microphones, and a document camera. The auditorium is accessible for students, featuring a podium with lecture capture capabilities and display cables.",
-            "Latitude": 44.2285734,
-            "Longitude": -76.492709
+            "Fun Fact": "Its exterior features decorative limestone facing, chosen to maintain traditional campus aesthetics.",
+            "Image": "https://th.bing.com/th/id/R.1efb7fab84ec14ec22c695c1f91bcdd5?rik=Y1BRXb2AkVTf9w&riu=http%3a%2f%2feeu.on.ca%2fp%2fwp-content%2fuploads%2f2013%2f03%2fHistory-1.jpg&ehk=V0IWAbyfO2SVt0o4zrmWUgyF8PJiKR5PLM0YI%2b2W7fw%3d&risl=&pid=ImgRaw&r=0",
+            "History": "Completed in 1966 and named after Nathan Fellowes Dupuis, an influential professor at Queen's.",
+            "Features": "Classrooms and an auditorium, with modern lecture capture systems and display cables."
         }
     },
     "Historical": {
@@ -443,3 +437,4 @@ if st.button('Save Number to Firebase'):
 if st.button('Read Number from Firebase'):
     number = read_number_from_firebase()
     st.write(f'Number from Firebase: {number}')
+
