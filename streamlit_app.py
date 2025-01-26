@@ -358,62 +358,49 @@ if st.session_state["page"] == "Categories":
         st.session_state["page"] = "Home"
 
 # Initialize session state variables
-if "location_fetched" not in st.session_state:
-    st.session_state["location_fetched"] = False
 if "latitude" not in st.session_state:
     st.session_state["latitude"] = None
 if "longitude" not in st.session_state:
     st.session_state["longitude"] = None
 
-# Button to trigger location fetching
-if st.button("Get My Location"):
-    st.session_state["location_fetched"] = True
-
-# If location fetching is triggered, inject JavaScript
-if st.session_state["location_fetched"] and st.session_state["latitude"] is None:
+# Function to inject JavaScript and fetch location
+def fetch_location():
     geo_location_script = """
     <script>
-    function sendLocation() {
+    function sendLocationToStreamlit() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
 
-                // Send the data back to Streamlit using a hidden input field
-                const inputLat = document.getElementById("lat");
-                const inputLon = document.getElementById("lon");
-                inputLat.value = lat;
-                inputLon.value = lon;
-                document.getElementById("location-form").submit();
+                // Streamlit custom event to pass the location
+                const streamlitEvent = new CustomEvent("streamlit:setComponentValue", {
+                    detail: { value: { latitude: lat, longitude: lon } }
+                });
+                window.parent.dispatchEvent(streamlitEvent);
             });
         } else {
             alert("Geolocation is not supported by this browser.");
         }
     }
-    sendLocation();
+    sendLocationToStreamlit();
     </script>
-    <form id="location-form" method="get" action="">
-        <input type="hidden" name="lat" id="lat">
-        <input type="hidden" name="lon" id="lon">
-    </form>
     """
     components.html(geo_location_script, height=0)
 
-# Retrieve location data from query parameters
-query_params = st.query_params
+# Button to trigger location fetching
+if st.button("Get My Location"):
+    fetch_location()
 
-lat = query_params.get("lat", [None])[0]
-lon = query_params.get("lon", [None])[0]
-
-if lat and lon:
-    # Update session state with location
-    st.session_state["latitude"] = lat
-    st.session_state["longitude"] = lon
+# Update session state with the received location
+if st.session_state.get("_component_value"):
+    location = st.session_state["_component_value"]
+    if location:
+        st.session_state["latitude"] = location["latitude"]
+        st.session_state["longitude"] = location["longitude"]
 
 # Display the location or prompt to fetch it
 if st.session_state["latitude"] and st.session_state["longitude"]:
-    st.write(f"Your location is: Latitude: {st.session_state['latitude']}, Longitude: {st.session_state['longitude']}")
-elif st.session_state["location_fetched"]:
-    st.write("Fetching your location...")
+    st.success(f"Your location is: Latitude: {st.session_state['latitude']}, Longitude: {st.session_state['longitude']}")
 else:
-    st.write("Press the button to fetch your location.")
+    st.info("Press the button to fetch your location.")
