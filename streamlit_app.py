@@ -357,49 +357,39 @@ if st.session_state["page"] == "Categories":
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
 
-# HTML and JavaScript to get the user's geolocation
+# JavaScript to get the geolocation
 geo_location_script = """
 <script>
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        // Pass coordinates to Streamlit through query parameters
-        window.parent.postMessage({lat: lat, lon: lon}, "*");
-    });
-  } else {
-    alert("Geolocation is not supported by this browser.");
-  }
+function sendLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            // Send the data back to Streamlit
+            const locationData = {latitude: lat, longitude: lon};
+            document.getElementById("location-data").value = JSON.stringify(locationData);
+            document.getElementById("location-form").submit();
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+sendLocation();
 </script>
+<form id="location-form" method="post">
+    <input type="hidden" id="location-data" name="location-data">
+</form>
 """
 
-# Display the JavaScript in the Streamlit app
+# Create a placeholder to inject JavaScript
 components.html(geo_location_script, height=0)
 
-# Function to handle the incoming location data
-def update_location(data):
-    st.session_state.lat = data['lat']
-    st.session_state.lon = data['lon']
-
-# Listen for the location update from JavaScript
-components.html("""
-    <script>
-        window.addEventListener("message", (event) => {
-            if (event.data.lat && event.data.lon) {
-                window.parent.postMessage(event.data, "*");
-            }
-        });
-    </script>
-""", height=0)
-
-# Initialize session state for location
-if 'lat' not in st.session_state:
-    st.session_state.lat = None
-if 'lon' not in st.session_state:
-    st.session_state.lon = None
-
-# Display the location on the Streamlit app
-if st.session_state.lat is not None and st.session_state.lon is not None:
-    st.write(f"Your location is: Latitude: {st.session_state.lat}, Longitude: {st.session_state.lon}")
+# Check if location data is sent back to Streamlit
+if "location-data" in st.session_state:
+    location = st.session_state["location-data"]
+    if location:
+        st.write(f"Your location: {location['latitude']}, {location['longitude']}")
 else:
-    st.write("Fetching location...")
+    st.write("Fetching your location...")
+
