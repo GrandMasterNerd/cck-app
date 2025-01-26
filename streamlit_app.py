@@ -362,45 +362,56 @@ if "latitude" not in st.session_state:
     st.session_state["latitude"] = None
 if "longitude" not in st.session_state:
     st.session_state["longitude"] = None
+if "fetching_location" not in st.session_state:
+    st.session_state["fetching_location"] = False
 
-# Function to inject JavaScript and fetch location
-def fetch_location():
+# Function to reset the location state
+def reset_location():
+    st.session_state["latitude"] = None
+    st.session_state["longitude"] = None
+    st.session_state["fetching_location"] = True
+
+# Button to trigger location fetching
+if st.button("Get My Location"):
+    reset_location()
+
+# Inject JavaScript only when location fetching is active
+if st.session_state["fetching_location"]:
     geo_location_script = """
     <script>
-    function sendLocationToStreamlit() {
+    (function() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
 
-                // Streamlit custom event to pass the location
+                // Send the location data to Streamlit
+                const streamlitData = { latitude: lat, longitude: lon };
                 const streamlitEvent = new CustomEvent("streamlit:setComponentValue", {
-                    detail: { value: { latitude: lat, longitude: lon } }
+                    detail: { value: streamlitData }
                 });
                 window.parent.dispatchEvent(streamlitEvent);
             });
         } else {
             alert("Geolocation is not supported by this browser.");
         }
-    }
-    sendLocationToStreamlit();
+    })();
     </script>
     """
     components.html(geo_location_script, height=0)
 
-# Button to trigger location fetching
-if st.button("Get My Location"):
-    fetch_location()
-
-# Update session state with the received location
-if st.session_state.get("_component_value"):
+# Check if the JavaScript has returned the location
+if "_component_value" in st.session_state:
     location = st.session_state["_component_value"]
     if location:
         st.session_state["latitude"] = location["latitude"]
         st.session_state["longitude"] = location["longitude"]
+        st.session_state["fetching_location"] = False
 
 # Display the location or prompt to fetch it
 if st.session_state["latitude"] and st.session_state["longitude"]:
     st.success(f"Your location is: Latitude: {st.session_state['latitude']}, Longitude: {st.session_state['longitude']}")
+elif st.session_state["fetching_location"]:
+    st.info("Fetching your location...")
 else:
     st.info("Press the button to fetch your location.")
