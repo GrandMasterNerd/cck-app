@@ -357,25 +357,6 @@ if st.session_state["page"] == "Categories":
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
 
-# Embedding the JavaScript code to scan networks
-components.html("""
-  <script>
-    function scanNetworks() {
-      if (navigator.bluetooth) {
-        navigator.bluetooth.requestDevice({acceptAllDevices: true})
-          .then(device => {
-            if(device.name == "ESP8266_Beacon") {
-              alert("You are near the ESP8266!");
-            }
-          })
-          .catch(error => console.log(error));
-      }
-    }
-    scanNetworks();
-  </script>
-""", height=0)
-
-# Handle users location information
 # HTML and JavaScript to get the user's geolocation
 geo_location_script = """
 <script>
