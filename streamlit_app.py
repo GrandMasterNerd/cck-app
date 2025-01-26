@@ -1,74 +1,25 @@
 import streamlit as st
-from PIL import Image
-import streamlit.components.v1 as components
+import pydeck as pdk
 import firebase_admin
 from firebase_admin import credentials, db
-import json
 
-# Setting custom page config
-st.set_page_config(
-    page_title="Compass Chronicles: Kingston",
-    page_icon="🧭",
-    layout="centered",
-)
-
-# Custom CSS for styling and animations
-st.markdown("""
-    <style>
-        body {
-            background-color: #f8f4e3;
-            font-family: 'Arial', sans-serif;
-        }
-        .main {
-            color: #3e2723;
-            font-size: 18px;
-            animation: fadeIn 2s ease-in;
-        }
-        h1, h2, h3 {
-            color: #3e2723;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            animation: bounce 1.5s infinite alternate;
-        }
-        .stButton button {
-            background-color: #8d6e63;
-            color: white;
-            border-radius: 10px;
-            border: none;
-            padding: 8px 16px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .stButton button:hover {
-            background-color: #5d4037;
-            transform: scale(1.1);
-        }
-        .stImage img {
-            border: 4px solid #6d4c41;
-            border-radius: 10px;
-        }
-        .info-card {
-            background-color: #f9f4ec;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-            animation: slideIn 2s ease-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
-        }
-        @keyframes slideIn {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0); }
-        }
-    </style>
-""", unsafe_allow_html=True)
-
+# Initialize Firebase Admin SDK if not already initialized
+if not firebase_admin._apps:
+    cred = credentials.Certificate({
+        "type": st.secrets["firebase_credentials"]["type"],
+        "project_id": st.secrets["firebase_credentials"]["project_id"],
+        "private_key_id": st.secrets["firebase_credentials"]["private_key_id"],
+        "private_key": st.secrets["firebase_credentials"]["private_key"],
+        "client_email": st.secrets["firebase_credentials"]["client_email"],
+        "client_id": st.secrets["firebase_credentials"]["client_id"],
+        "auth_uri": st.secrets["firebase_credentials"]["auth_uri"],
+        "token_uri": st.secrets["firebase_credentials"]["token_uri"],
+        "auth_provider_x509_cert_url": st.secrets["firebase_credentials"]["auth_provider_x509_cert_url"],
+        "client_x509_cert_url": st.secrets["firebase_credentials"]["client_x509_cert_url"],
+    })
+    firebase_admin.initialize_app(cred, {
+        'databaseURL': 'https://cck-app-91eee-default-rtdb.firebaseio.com/'
+    }
 # Landmarks data in the four categories
 landmarks_data = {
     "Engineer": {
@@ -242,167 +193,86 @@ landmarks_data = {
     }
 }
 # Initialize session state
-if "page" not in st.session_state:
-    st.session_state["page"] = "Home"
+if "visited_landmarks" not in st.session_state:
+    st.session_state["visited_landmarks"] = {}
+if "badges" not in st.session_state:
+    st.session_state["badges"] = set()
 
-# Home Page
-if st.session_state["page"] == "Home":
-    st.image(
-        "res/Make a logo for this app_ Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture. Make a logo. Include the words _Compass.jpg",  # Replace with actual logo URL
-        caption="🧭 Compass Chronicles: Kingston",
-        use_container_width=True
+# Firebase References
+db_ref = db.reference("users")  # Store user progress and leaderboard
+badges_ref = db.reference("badges")  # Store badge criteria
+
+# Update Progress
+def mark_landmark_visited(category, landmark):
+    st.session_state["visited_landmarks"].setdefault(category, []).append(landmark)
+    db_ref.child("progress").set(st.session_state["visited_landmarks"])
+    update_leaderboard()
+
+# Update Leaderboard
+def update_leaderboard():
+    user_score = sum(len(v) for v in st.session_state["visited_landmarks"].values())
+    db_ref.child("leaderboard").child(st.secrets["user_id"]).set({"name": st.secrets["user_name"], "score": user_score})
+
+# Unlock Badges
+def unlock_badge(badge_name):
+    if badge_name not in st.session_state["badges"]:
+        st.session_state["badges"].add(badge_name)
+        badges_ref.child(st.secrets["user_id"]).push(badge_name)
+        st.success(f"🎉 Unlocked Badge: {badge_name}!")
+
+# Map Component
+def render_map(selected_landmark=None):
+    pins = [
+        {"name": lm, "lat": details["Latitude"], "lon": details["Longitude"]}
+        for cat in landmarks_data.values()
+        for lm, details in cat.items()
+    ]
+    current_pin = next((p for p in pins if p["name"] == selected_landmark), None)
+    initial_view = pdk.ViewState(
+        latitude=current_pin["lat"] if current_pin else 44.2312,
+        longitude=current_pin["lon"] if current_pin else -76.486,
+        zoom=12,
     )
-    st.header("🧭 Welcome to Compass Chronicles: Kingston")
-    st.write("""
-        **Embark on an Adventure!**  
-        Use your phone as a compass to uncover hidden treasures around Kingston.  
-        Discover landmarks, collect badges, unlock deals, and immerse yourself in history and culture!
-    """)
-    if st.button("Start Exploring"):
-        st.session_state["page"] = "Categories"
-    elif st.button("Promotions"):
-        st.session_state["page"] = "Promotions"
-    elif st.button("Project Details"):
-        st.session_state["page"] = "Details"
-
-# Promotions Page
-if st.session_state["page"] == "Promotions":
-    st.header("🏷️ Exclusive Deals!")
-    st.image(
-        "https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg", 
-        caption="📱 Scan to Redeem Deals", 
-        use_container_width=True
+    layer = pdk.Layer(
+        "ScatterplotLayer",
+        data=pins,
+        get_position="[lon, lat]",
+        get_radius=100,
+        get_color="[255, 0, 0]" if current_pin else "[0, 0, 255]",
     )
-    st.write("🎉 Show this screen to claim your treasure:")
-    st.write("- **Common Ground Coffeehouse:** 10% off any drink today!")
-    st.write("- **The Grad Club:** Free appetizer with any meal!")
-    if st.button("Back to Home"):
-        st.session_state["page"] = "Home"
+    st.pydeck_chart(pdk.Deck(initial_view_state=initial_view, layers=[layer]))
 
-# Project Details Page
-if st.session_state["page"] == "Details":
-    st.header("📜 Project Details")
-    st.markdown("""
-        #### 🚀 Elevator Pitch
-        Explore Kingston with Compass Chronicles! Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture.
-        
-        #### 🌟 Inspiration
-        Inspired by Kingston's rich history, vibrant culture, and unique landmarks, we created an interactive experience that blends exploration, education, and gamified rewards. Our goal is to encourage locals and visitors to discover the city in a fun and engaging way.
-        
-        #### 🔍 What It Does
-        Compass Chronicles: Kingston acts as your personal tour guide, utilizing GPS and compass functionalities to navigate you to landmarks. Key features include:
+# Leaderboard
+def display_leaderboard():
+    leaderboard_data = db_ref.child("leaderboard").order_by_child("score").get()
+    sorted_leaderboard = sorted(leaderboard_data.items(), key=lambda x: x[1]["score"], reverse=True)
+    st.header("🏆 Leaderboard")
+    for idx, (user_id, data) in enumerate(sorted_leaderboard[:10]):
+        st.write(f"#{idx + 1} {data['name']}: {data['score']} points")
 
-        - Unlocking historical insights and fun facts.
-        - Earning badges for visiting specific locations.
-        - Accessing exclusive local deals.
-        - Navigating to the next landmark or exploring nearby spots.
-        
-        #### 🛠️ How We Built It
-        - **Frontend:** Built with Streamlit for an intuitive and user-friendly interface.
-        - **Backend:** Powered by Python scripts for GPS integration, badge tracking, and deal distribution.
-        - **Hosting:** Deployed using GoDaddy for reliable online accessibility.
-        - **Hardware:** Implemented an ESP8266-based proximity beacon for location-triggered notifications.
-        
-        #### 🎯 Challenges
-        - Integrating real-time GPS data with compass navigation.
-        - Designing a seamless badge-earning system.
-        - Ensuring accurate proximity detection using the ESP8266 beacon.
-        - Balancing functionality with a clean, user-friendly interface.
-        
-        #### 🏆 Accomplishments
-        - Created an engaging and educational user experience.
-        - Developed a gamified system to motivate exploration.
-        - Set up an ESP8266 beacon for proximity-triggered notifications.
-        - Partnered with local businesses to offer exclusive deals to users.
-        
-        #### 🌟 What's Next?
-        - Expanding the app to include more landmarks and historical data.
-        - Collaborating with additional local businesses for more deals.
-        - Adding multi-language support for international visitors.
-        - Integrating AR (Augmented Reality) features for an even more immersive experience.
-        - Enhancing the notification system for improved proximity detection and customization.
-    """)
+# Streamlit Pages
+st.sidebar.title("Navigation")
+page = st.sidebar.radio("Pages", ["Home", "Map", "Progress", "Leaderboard", "Badges"])
 
-
-    # Meet the Founders Section
-    st.subheader("🤝 Meet the Founders")
-    founders = {
-        "Nolan Verboomen": "res/nolanheadshot.jpg",
-        "Adam Likogiannis": "res/IMG_0116.2.jpg",
-        "Aidan Murray": "res/image (10).png",
-        "Eiqan Ahsan": "res/eiqanheadshot.png"
-    }
-    cols = st.columns(len(founders))
-    for col, (name, img_url) in zip(cols, founders.items()):
-        with col:
-            st.image(img_url, caption=name, use_container_width=True)
-
-    if st.button("Back to Home"):
-        st.session_state["page"] = "Home"
-
-# Categories and Landmarks Page
-if st.session_state["page"] == "Categories":
-    st.header("🗺️ Choose Your Adventure")
-    category = st.selectbox("📂 Select a Category", list(landmarks_data.keys()))
-
+if page == "Home":
+    st.title("🧭 Welcome to Compass Chronicles!")
+    st.write("Discover Kingston by visiting landmarks and earning rewards.")
+elif page == "Map":
+    st.title("📍 Explore the Map")
+    category = st.selectbox("Select Category", list(landmarks_data.keys()))
     if category:
-        st.subheader(f"📍 Landmarks in {category}")
-        landmark = st.selectbox("🏛️ Select a Landmark", list(landmarks_data[category].keys()))
-
+        landmark = st.selectbox("Select Landmark", list(landmarks_data[category].keys()))
         if landmark:
-            details = landmarks_data[category][landmark]
-            st.image(details["Image"], caption=landmark, use_container_width=True)
-            st.write(f"**Distance:** {details['Distance']}")
-            st.write(f"**Fun Fact:** {details['Fun Fact']}")
-            st.write(f"**History:** {details['History']}")
-            st.write(f"**Features:** {details['Features']}")
-
-    if st.button("Back to Home"):
-        st.session_state["page"] = "Home"
-
-# Access Firebase credentials from Streamlit secrets
-firebase_cred = {
-    "type": st.secrets["firebase_credentials"]["type"],
-    "project_id": st.secrets["firebase_credentials"]["project_id"],
-    "private_key_id": st.secrets["firebase_credentials"]["private_key_id"],
-    "private_key": st.secrets["firebase_credentials"]["private_key"],
-    "client_email": st.secrets["firebase_credentials"]["client_email"],
-    "client_id": st.secrets["firebase_credentials"]["client_id"],
-    "auth_uri": st.secrets["firebase_credentials"]["auth_uri"],
-    "token_uri": st.secrets["firebase_credentials"]["token_uri"],
-    "auth_provider_x509_cert_url": st.secrets["firebase_credentials"]["auth_provider_x509_cert_url"],
-    "client_x509_cert_url": st.secrets["firebase_credentials"]["client_x509_cert_url"]
-}
-
-# Initialize Firebase Admin SDK if not already initialized
-if not firebase_admin._apps:
-    cred = credentials.Certificate(firebase_cred)
-    firebase_admin.initialize_app(cred, {
-        'databaseURL': 'https://cck-app-91eee-default-rtdb.firebaseio.com/'
-    })
-
-# Function to write data to Firebase
-def write_number_to_firebase(number):
-    ref = db.reference('numbers/score')
-    ref.set(number)
-
-# Function to read data from Firebase
-def read_number_from_firebase():
-    ref = db.reference('numbers/score')
-    return ref.get()
-
-# Streamlit UI
-st.title('Firebase Realtime Database with Streamlit')
-
-# Input to enter a number
-user_input = st.number_input('Enter a number:', min_value=0, max_value=100, step=1)
-
-# Button to save the number to Firebase
-if st.button('Save Number to Firebase'):
-    write_number_to_firebase(user_input)
-    st.success(f'Number {user_input} saved to Firebase.')
-
-# Button to read the number from Firebase
-if st.button('Read Number from Firebase'):
-    number = read_number_from_firebase()
-    st.write(f'Number from Firebase: {number}')
+            render_map(landmark)
+            if st.button("Mark as Visited"):
+                mark_landmark_visited(category, landmark)
+elif page == "Progress":
+    st.title("📊 Your Progress")
+    for cat, visited in st.session_state["visited_landmarks"].items():
+        st.write(f"**{cat}**: {', '.join(visited)}")
+elif page == "Leaderboard":
+    display_leaderboard()
+elif page == "Badges":
+    st.title("🏅 Badges")
+    for badge in st.session_state["badges"]:
+        st.write(f"- {badge}")
