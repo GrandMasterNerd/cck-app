@@ -428,12 +428,13 @@ def read_number_from_firebase():
         return number
 
 # Streamlit UI
-st.title('Firebase Realtime Database with Streamlit')
+st.title('Where Am I?')
 
 # Button to read the number from Firebase
-if st.button('Where am I?'):
+if st.button('Find Me'):
     number = read_number_from_firebase()
     if number == 19216841:
         st.write("You are in Beamish Munro Hall!")        # Beamish Munro Hall Ip address
     else:
         st.write("You aren't at any of Kingston's historical sites!")
+        st.image("res/Queens-University-Beamish-Munro_Hero.jpg")
