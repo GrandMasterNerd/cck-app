@@ -434,6 +434,9 @@ st.title('Firebase Realtime Database with Streamlit')
 user_input = st.number_input('Enter a number:', min_value=0, max_value=100, step=1)
 
 # Button to read the number from Firebase
-if st.button('Read Number from Firebase'):
+if st.button('Where am I?'):
     number = read_number_from_firebase()
-    st.write(f'Number from Firebase: {number}')
+    if number == 19216841:
+        st.write("You are in Beamish Munro Hall!")        # Beamish Munro Hall Ip address
+    else:
+        st.write("You aren't at any of Kingston's historical sites!")
