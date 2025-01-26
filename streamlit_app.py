@@ -363,6 +363,11 @@ if st.session_state["page"] == "Categories":
         progress = calculate_progress(category)
         st.progress(progress / 100)
 
+        # Reset progress button
+        if st.button("Reset Progress"):
+            st.session_state.visited_landmarks[category] = []
+            st.success(f"Progress for {category} has been reset!")
+
         st.subheader(f"\U0001F4CD Landmarks in {category}")
         landmark = st.selectbox("\U0001F3DB Select a Landmark", list(landmarks_data[category].keys()))
 
