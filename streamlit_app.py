@@ -357,7 +357,7 @@ if st.session_state["page"] == "Categories":
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
 
-# JavaScript to get the geolocation
+# HTML and JavaScript to get user's location and send it back to Streamlit
 geo_location_script = """
 <script>
 function sendLocation() {
@@ -366,9 +366,9 @@ function sendLocation() {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
 
-            // Send the data back to Streamlit
-            const locationData = {latitude: lat, longitude: lon};
-            document.getElementById("location-data").value = JSON.stringify(locationData);
+            // Send the data back to Streamlit using a hidden input field
+            document.getElementById("lat").value = lat;
+            document.getElementById("lon").value = lon;
             document.getElementById("location-form").submit();
         });
     } else {
@@ -377,19 +377,21 @@ function sendLocation() {
 }
 sendLocation();
 </script>
-<form id="location-form" method="post">
-    <input type="hidden" id="location-data" name="location-data">
+<form id="location-form" method="post" action="">
+    <input type="hidden" name="lat" id="lat">
+    <input type="hidden" name="lon" id="lon">
 </form>
 """
 
-# Create a placeholder to inject JavaScript
+# Add the JavaScript to the Streamlit app
 components.html(geo_location_script, height=0)
 
-# Check if location data is sent back to Streamlit
-if "location-data" in st.session_state:
-    location = st.session_state["location-data"]
-    if location:
-        st.write(f"Your location: {location['latitude']}, {location['longitude']}")
+# Check if the location is sent back
+if "lat" in st.experimental_get_query_params() and "lon" in st.experimental_get_query_params():
+    latitude = st.experimental_get_query_params()["lat"][0]
+    longitude = st.experimental_get_query_params()["lon"][0]
+
+    st.write(f"Your location is: Latitude: {latitude}, Longitude: {longitude}")
 else:
     st.write("Fetching your location...")
 
