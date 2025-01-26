@@ -261,7 +261,7 @@ def calculate_progress(category):
 if st.session_state["page"] == "Home":
     st.image(
         "res/Make a logo for this app_ Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture. Make a logo. Include the words _Compass.jpg",  # Replace with actual logo URL
-        caption="\U0001F6F1 Compass Chronicles: Kingston",
+        caption="🧭 Compass Chronicles: Kingston",
         use_container_width=True
     )
     st.header("🧭 Welcome to Compass Chronicles: Kingston")
