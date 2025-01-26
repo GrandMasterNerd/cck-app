@@ -360,9 +360,9 @@ if st.session_state["page"] == "Categories":
         st.session_state["page"] = "Home"
 
 # Firebase Initialization
-cred = credentials.Certificate('path_to_your_service_account_file.json')
+cred = credentials.Certificate('res/cck-app-91eee-firebase-adminsdk-fbsvc-cfa457cd30.json')
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://your-database-name.firebaseio.com/'
+    'databaseURL': 'https://cck-app-91eee-default-rtdb.firebaseio.com/'
 })
 
 # Fetch number from Firebase Realtime Database
