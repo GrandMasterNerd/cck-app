@@ -357,6 +357,9 @@ if st.session_state["page"] == "Categories":
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
 
+import streamlit as st
+import streamlit.components.v1 as components
+
 # HTML and JavaScript to get user's location and send it back to Streamlit
 geo_location_script = """
 <script>
@@ -377,7 +380,7 @@ function sendLocation() {
 }
 sendLocation();
 </script>
-<form id="location-form" method="post" action="">
+<form id="location-form" method="get" action="">
     <input type="hidden" name="lat" id="lat">
     <input type="hidden" name="lon" id="lon">
 </form>
@@ -386,10 +389,12 @@ sendLocation();
 # Add the JavaScript to the Streamlit app
 components.html(geo_location_script, height=0)
 
-# Check if the location is sent back
-if "lat" in st.experimental_get_query_params() and "lon" in st.experimental_get_query_params():
-    latitude = st.experimental_get_query_params()["lat"][0]
-    longitude = st.experimental_get_query_params()["lon"][0]
+# Access query parameters
+query_params = st.experimental_get_query_params()
+
+if "lat" in query_params and "lon" in query_params:
+    latitude = query_params["lat"][0]
+    longitude = query_params["lon"][0]
 
     st.write(f"Your location is: Latitude: {latitude}, Longitude: {longitude}")
 else:
