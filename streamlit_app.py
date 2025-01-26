@@ -435,6 +435,6 @@ if st.button('Find Me'):
     number = read_number_from_firebase()
     if number == 19216841:
         st.write("You are in Beamish Munro Hall!")        # Beamish Munro Hall Ip address
+        st.image("res/Queens-University-Beamish-Munro_Hero.jpg")
     else:
         st.write("You aren't at any of Kingston's historical sites!")
-        st.image("res/Queens-University-Beamish-Munro_Hero.jpg")
