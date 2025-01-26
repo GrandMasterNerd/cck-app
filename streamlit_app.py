@@ -12,53 +12,6 @@ st.set_page_config(
     layout="centered",
 )
 
-# Access Firebase credentials from Streamlit secrets
-firebase_cred = {
-    "type": st.secrets["firebase_credentials"]["type"],
-    "project_id": st.secrets["firebase_credentials"]["project_id"],
-    "private_key_id": st.secrets["firebase_credentials"]["private_key_id"],
-    "private_key": st.secrets["firebase_credentials"]["private_key"],
-    "client_email": st.secrets["firebase_credentials"]["client_email"],
-    "client_id": st.secrets["firebase_credentials"]["client_id"],
-    "auth_uri": st.secrets["firebase_credentials"]["auth_uri"],
-    "token_uri": st.secrets["firebase_credentials"]["token_uri"],
-    "auth_provider_x509_cert_url": st.secrets["firebase_credentials"]["auth_provider_x509_cert_url"],
-    "client_x509_cert_url": st.secrets["firebase_credentials"]["client_x509_cert_url"]
-}
-
-# Initialize Firebase Admin SDK if not already initialized
-if not firebase_admin._apps:
-    cred = credentials.Certificate(firebase_cred)
-    firebase_admin.initialize_app(cred, {
-        'databaseURL': 'https://cck-app-91eee-default-rtdb.firebaseio.com/'
-    })
-
-# Function to write data to Firebase
-def write_number_to_firebase(number):
-    ref = db.reference('numbers/score')
-    ref.set(number)
-
-# Function to read data from Firebase
-def read_number_from_firebase():
-    ref = db.reference('numbers/score')
-    return ref.get()
-
-# Streamlit UI
-st.title('Firebase Realtime Database with Streamlit')
-
-# Input to enter a number
-user_input = st.number_input('Enter a number:', min_value=0, max_value=100, step=1)
-
-# Button to save the number to Firebase
-if st.button('Save Number to Firebase'):
-    write_number_to_firebase(user_input)
-    st.success(f'Number {user_input} saved to Firebase.')
-
-# Button to read the number from Firebase
-if st.button('Read Number from Firebase'):
-    number = read_number_from_firebase()
-    st.write(f'Number from Firebase: {number}')
-
 # Initialize session state for progress tracking
 if "page" not in st.session_state:
     st.session_state["page"] = "Home"
@@ -440,3 +393,50 @@ if st.session_state["page"] == "Categories":
 
         if st.button("Back to Home"):
             st.session_state["page"] = "Home"
+
+# Access Firebase credentials from Streamlit secrets
+firebase_cred = {
+    "type": st.secrets["firebase_credentials"]["type"],
+    "project_id": st.secrets["firebase_credentials"]["project_id"],
+    "private_key_id": st.secrets["firebase_credentials"]["private_key_id"],
+    "private_key": st.secrets["firebase_credentials"]["private_key"],
+    "client_email": st.secrets["firebase_credentials"]["client_email"],
+    "client_id": st.secrets["firebase_credentials"]["client_id"],
+    "auth_uri": st.secrets["firebase_credentials"]["auth_uri"],
+    "token_uri": st.secrets["firebase_credentials"]["token_uri"],
+    "auth_provider_x509_cert_url": st.secrets["firebase_credentials"]["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": st.secrets["firebase_credentials"]["client_x509_cert_url"]
+}
+
+# Initialize Firebase Admin SDK if not already initialized
+if not firebase_admin._apps:
+    cred = credentials.Certificate(firebase_cred)
+    firebase_admin.initialize_app(cred, {
+        'databaseURL': 'https://cck-app-91eee-default-rtdb.firebaseio.com/'
+    })
+
+# Function to write data to Firebase
+def write_number_to_firebase(number):
+    ref = db.reference('numbers/score')
+    ref.set(number)
+
+# Function to read data from Firebase
+def read_number_from_firebase():
+    ref = db.reference('numbers/score')
+    return ref.get()
+
+# Streamlit UI
+st.title('Firebase Realtime Database with Streamlit')
+
+# Input to enter a number
+user_input = st.number_input('Enter a number:', min_value=0, max_value=100, step=1)
+
+# Button to save the number to Firebase
+if st.button('Save Number to Firebase'):
+    write_number_to_firebase(user_input)
+    st.success(f'Number {user_input} saved to Firebase.')
+
+# Button to read the number from Firebase
+if st.button('Read Number from Firebase'):
+    number = read_number_from_firebase()
+    st.write(f'Number from Firebase: {number}')
