@@ -357,15 +357,20 @@ if st.session_state["page"] == "Categories":
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
 
-# Button to trigger location fetching
+# Initialize session state variables
 if "location_fetched" not in st.session_state:
     st.session_state["location_fetched"] = False
+if "latitude" not in st.session_state:
+    st.session_state["latitude"] = None
+if "longitude" not in st.session_state:
+    st.session_state["longitude"] = None
 
+# Button to trigger location fetching
 if st.button("Get My Location"):
     st.session_state["location_fetched"] = True
 
-if st.session_state["location_fetched"]:
-    # HTML and JavaScript to get user's location
+# If location fetching is triggered, inject JavaScript
+if st.session_state["location_fetched"] and st.session_state["latitude"] is None:
     geo_location_script = """
     <script>
     function sendLocation() {
@@ -375,8 +380,10 @@ if st.session_state["location_fetched"]:
                 const lon = position.coords.longitude;
 
                 // Send the data back to Streamlit using a hidden input field
-                document.getElementById("lat").value = lat;
-                document.getElementById("lon").value = lon;
+                const inputLat = document.getElementById("lat");
+                const inputLon = document.getElementById("lon");
+                inputLat.value = lat;
+                inputLon.value = lon;
                 document.getElementById("location-form").submit();
             });
         } else {
@@ -385,24 +392,26 @@ if st.session_state["location_fetched"]:
     }
     sendLocation();
     </script>
-    <form id="location-form" method="get" action="">
+    <form id="location-form" method="post" action="">
         <input type="hidden" name="lat" id="lat">
         <input type="hidden" name="lon" id="lon">
     </form>
     """
-    # Add the JavaScript to the Streamlit app
     components.html(geo_location_script, height=0)
 
-# Access query parameters
-query_params = st.query_params
+# Retrieve location data from Streamlit's request forms
+lat = st.experimental_get_query_params().get("lat", [None])[0]
+lon = st.experimental_get_query_params().get("lon", [None])[0]
 
-if "lat" in query_params and "lon" in query_params:
-    latitude = query_params["lat"][0]
-    longitude = query_params["lon"][0]
+if lat and lon:
+    # Update session state with location
+    st.session_state["latitude"] = lat
+    st.session_state["longitude"] = lon
 
-    st.write(f"Your location is: Latitude: {latitude}, Longitude: {longitude}")
+# Display the location or prompt to fetch it
+if st.session_state["latitude"] and st.session_state["longitude"]:
+    st.write(f"Your location is: Latitude: {st.session_state['latitude']}, Longitude: {st.session_state['longitude']}")
+elif st.session_state["location_fetched"]:
+    st.write("Fetching your location...")
 else:
-    if st.session_state["location_fetched"]:
-        st.write("Fetching your location...")
-    else:
-        st.write("Press the button to fetch your location.")
+    st.write("Press the button to fetch your location.")
