@@ -246,7 +246,7 @@ landmarks_data = {
 }
 
 # Calculate progress
-total_landmarks = len(landmarks)
+total_landmarks = sum(len(v) for v in landmarks_data.values())
 visited_landmarks_count = len(st.session_state.visited_landmarks)
 progress = visited_landmarks_count / total_landmarks
 
