@@ -359,4 +359,15 @@ if st.session_state["page"] == "Categories":
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
 
+# Firebase Initialization
+cred = credentials.Certificate('path_to_your_service_account_file.json')
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://your-database-name.firebaseio.com/'
+})
 
+# Fetch number from Firebase Realtime Database
+ref = db.reference('your/data/reference')
+number = ref.get()
+
+# Display the number in Streamlit
+st.write(f"The number from Firebase is: {number}")
