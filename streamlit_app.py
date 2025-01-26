@@ -1,6 +1,8 @@
 import streamlit as st
 from PIL import Image
 import streamlit.components.v1 as components
+import firebase_admin
+from firebase_admin import credentials, db
 
 # Setting custom page config
 st.set_page_config(
