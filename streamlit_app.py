@@ -270,12 +270,16 @@ if st.session_state["page"] == "Home":
         Use your phone as a compass to uncover hidden treasures around Kingston.  
         Discover landmarks, collect badges, unlock deals, and immerse yourself in history and culture!
     """)
+
+    # Adding fun with confetti and sound effects
     if st.button("Start Exploring"):
         st.session_state["page"] = "Categories"
+        st.balloons()  # Display balloons effect to make the app more fun
     elif st.button("Promotions"):
         st.session_state["page"] = "Promotions"
     elif st.button("Project Details"):
         st.session_state["page"] = "Details"
+
 
 # Promotions Page
 if st.session_state["page"] == "Promotions":
