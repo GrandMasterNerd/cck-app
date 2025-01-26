@@ -343,7 +343,11 @@ if st.session_state["page"] == "Details":
 # Categories and Landmarks Page
 if st.session_state["page"] == "Categories":
     st.header("🗺️ Choose Your Adventure")
-    st.progress(calculate_progress())  # Display progress bar
+    total_landmarks = sum(len(landmarks) for landmarks in landmarks_data.values())
+visited_count = len(st.session_state.get("visited_landmarks", []))
+progress = visited_count / total_landmarks if total_landmarks > 0 else 0
+st.progress(progress)
+
 
     category = st.selectbox("📂 Select a Category", list(landmarks_data.keys()))
 
