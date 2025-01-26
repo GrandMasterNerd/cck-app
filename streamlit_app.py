@@ -415,11 +415,6 @@ if not firebase_admin._apps:
         'databaseURL': 'https://cck-app-91eee-default-rtdb.firebaseio.com/'
     })
 
-# Function to write data to Firebase
-def write_number_to_firebase(number):
-    ref = db.reference('numbers/score')
-    ref.set(number)
-
 # Function to read data from Firebase
 def read_number_from_firebase():
     ref = db.reference('numbers/score')
@@ -430,11 +425,6 @@ st.title('Firebase Realtime Database with Streamlit')
 
 # Input to enter a number
 user_input = st.number_input('Enter a number:', min_value=0, max_value=100, step=1)
-
-# Button to save the number to Firebase
-if st.button('Save Number to Firebase'):
-    write_number_to_firebase(user_input)
-    st.success(f'Number {user_input} saved to Firebase.')
 
 # Button to read the number from Firebase
 if st.button('Read Number from Firebase'):
