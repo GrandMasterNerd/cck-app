@@ -392,16 +392,18 @@ if st.session_state["location_fetched"] and st.session_state["latitude"] is None
     }
     sendLocation();
     </script>
-    <form id="location-form" method="post" action="">
+    <form id="location-form" method="get" action="">
         <input type="hidden" name="lat" id="lat">
         <input type="hidden" name="lon" id="lon">
     </form>
     """
     components.html(geo_location_script, height=0)
 
-# Retrieve location data from Streamlit's request forms
-lat = st.experimental_get_query_params().get("lat", [None])[0]
-lon = st.experimental_get_query_params().get("lon", [None])[0]
+# Retrieve location data from query parameters
+query_params = st.query_params
+
+lat = query_params.get("lat", [None])[0]
+lon = query_params.get("lon", [None])[0]
 
 if lat and lon:
     # Update session state with location
