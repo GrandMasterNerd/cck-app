@@ -357,37 +357,44 @@ if st.session_state["page"] == "Categories":
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
 
-# HTML and JavaScript to get user's location and send it back to Streamlit
-geo_location_script = """
-<script>
-function sendLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
+# Button to trigger location fetching
+if "location_fetched" not in st.session_state:
+    st.session_state["location_fetched"] = False
 
-            // Send the data back to Streamlit using a hidden input field
-            document.getElementById("lat").value = lat;
-            document.getElementById("lon").value = lon;
-            document.getElementById("location-form").submit();
-        });
-    } else {
-        alert("Geolocation is not supported by this browser.");
+if st.button("Get My Location"):
+    st.session_state["location_fetched"] = True
+
+if st.session_state["location_fetched"]:
+    # HTML and JavaScript to get user's location
+    geo_location_script = """
+    <script>
+    function sendLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                // Send the data back to Streamlit using a hidden input field
+                document.getElementById("lat").value = lat;
+                document.getElementById("lon").value = lon;
+                document.getElementById("location-form").submit();
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
     }
-}
-sendLocation();
-</script>
-<form id="location-form" method="get" action="">
-    <input type="hidden" name="lat" id="lat">
-    <input type="hidden" name="lon" id="lon">
-</form>
-"""
-
-# Add the JavaScript to the Streamlit app
-components.html(geo_location_script, height=0)
+    sendLocation();
+    </script>
+    <form id="location-form" method="get" action="">
+        <input type="hidden" name="lat" id="lat">
+        <input type="hidden" name="lon" id="lon">
+    </form>
+    """
+    # Add the JavaScript to the Streamlit app
+    components.html(geo_location_script, height=0)
 
 # Access query parameters
-query_params = st.query_params  # Correctly using st.query_params here
+query_params = st.query_params
 
 if "lat" in query_params and "lon" in query_params:
     latitude = query_params["lat"][0]
@@ -395,5 +402,7 @@ if "lat" in query_params and "lon" in query_params:
 
     st.write(f"Your location is: Latitude: {latitude}, Longitude: {longitude}")
 else:
-    st.write("Fetching your location...")
-
+    if st.session_state["location_fetched"]:
+        st.write("Fetching your location...")
+    else:
+        st.write("Press the button to fetch your location.")
