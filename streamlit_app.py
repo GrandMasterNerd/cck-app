@@ -357,9 +357,6 @@ if st.session_state["page"] == "Categories":
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
 
-import streamlit as st
-import streamlit.components.v1 as components
-
 # HTML and JavaScript to get user's location and send it back to Streamlit
 geo_location_script = """
 <script>
@@ -390,7 +387,7 @@ sendLocation();
 components.html(geo_location_script, height=0)
 
 # Access query parameters
-query_params = st.experimental_get_query_params()
+query_params = st.query_params  # Correctly using st.query_params here
 
 if "lat" in query_params and "lon" in query_params:
     latitude = query_params["lat"][0]
