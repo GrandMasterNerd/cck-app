@@ -362,9 +362,9 @@ if st.session_state["page"] == "Categories":
     category = st.selectbox("📂 Select a Category", list(landmarks_data.keys()))
 
     if category:
-    st.subheader(f"📍 Landmarks in {category}")
-    landmarks_in_category = list(landmarks_data[category].keys())
-    landmark = st.selectbox("🏛️ Select a Landmark", landmarks_in_category)
+        st.subheader(f"📍 Landmarks in {category}")
+        landmarks_in_category = list(landmarks_data[category].keys())
+        landmark = st.selectbox("🏛️ Select a Landmark", landmarks_in_category)
 
     if landmark:
         details = landmarks_data[category][landmark]
