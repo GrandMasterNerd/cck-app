@@ -412,7 +412,7 @@ firebase_cred = {
 if not firebase_admin._apps:
     cred = credentials.Certificate(firebase_cred)
     firebase_admin.initialize_app(cred, {
-        'databaseURL': 'https://cck-app-91eee-default-rtdb.firebaseio.com/'
+        'databaseURL': 'cck-app-91eee-default-rtdb.firebaseio.com'
     })
 
 # Function to read data from Firebase
