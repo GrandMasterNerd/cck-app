@@ -5,9 +5,6 @@ import firebase_admin
 from firebase_admin import credentials, db
 import json
 
-if "visited_landmarks" not in st.session_state:
-    st.session_state.visited_landmarks = []
-
 # Setting custom page config
 st.set_page_config(
     page_title="Compass Chronicles: Kingston",
@@ -244,19 +241,6 @@ landmarks_data = {
         }
     }
 }
-
-# Calculate progress
-total_landmarks = sum(len(v) for v in landmarks_data.values())
-visited_landmarks_count = len(st.session_state.visited_landmarks)
-progress = visited_landmarks_count / total_landmarks
-
-# Display progress bar
-st.progress(progress)
-
-# Display visited landmarks
-st.write(f"Visited Landmarks: {visited_landmarks_count}/{total_landmarks}")
-st.write(", ".join(st.session_state.visited_landmarks) or "No landmarks visited yet.")
-
 # Initialize session state
 if "page" not in st.session_state:
     st.session_state["page"] = "Home"
@@ -363,30 +347,15 @@ if st.session_state["page"] == "Categories":
 
     if category:
         st.subheader(f"📍 Landmarks in {category}")
-        landmarks_in_category = list(landmarks_data[category].keys())
-        landmark = st.selectbox("🏛️ Select a Landmark", landmarks_in_category)
+        landmark = st.selectbox("🏛️ Select a Landmark", list(landmarks_data[category].keys()))
 
-    if landmark:
-        details = landmarks_data[category][landmark]
-        st.image(details["Image"], caption=landmark, use_container_width=True)
-        st.write(f"**Distance:** {details['Distance']}")
-        st.write(f"**Fun Fact:** {details['Fun Fact']}")
-        st.write(f"**History:** {details['History']}")
-        st.write(f"**Features:** {details['Features']}")
-
-        # Add "Visit" button functionality
-        if st.button(f"Mark {landmark} as Visited"):
-            if landmark not in st.session_state.visited_landmarks:
-                st.session_state.visited_landmarks.append(landmark)
-                st.experimental_rerun()  # Refresh to update progress
-
-    # Display progress bar
-    visited_count = len(st.session_state.visited_landmarks)
-    total_landmarks = sum(len(v) for v in landmarks_data.values())
-    progress = visited_count / total_landmarks
-    st.progress(progress)
-    st.write(f"Progress: {visited_count} / {total_landmarks} landmarks visited")
-
+        if landmark:
+            details = landmarks_data[category][landmark]
+            st.image(details["Image"], caption=landmark, use_container_width=True)
+            st.write(f"**Distance:** {details['Distance']}")
+            st.write(f"**Fun Fact:** {details['Fun Fact']}")
+            st.write(f"**History:** {details['History']}")
+            st.write(f"**Features:** {details['Features']}")
 
     if st.button("Back to Home"):
         st.session_state["page"] = "Home"
@@ -437,4 +406,3 @@ if st.button('Save Number to Firebase'):
 if st.button('Read Number from Firebase'):
     number = read_number_from_firebase()
     st.write(f'Number from Firebase: {number}')
-
