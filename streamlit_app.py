@@ -412,13 +412,19 @@ firebase_cred = {
 if not firebase_admin._apps:
     cred = credentials.Certificate(firebase_cred)
     firebase_admin.initialize_app(cred, {
-        'databaseURL': 'cck-app-91eee-default-rtdb.firebaseio.com'
+        'databaseURL': 'https://cck-app-91eee-default-rtdb.firebaseio.com/'
     })
 
 # Function to read data from Firebase
 def read_number_from_firebase():
-    ref = db.reference('numbers/score')
-    return ref.get()
+    try:
+        ref = db.reference('numbers/score')
+        number = ref.get()
+        if number is None:
+            return "No data found"
+        return number
+    except Exception as e:
+        return f"Error reading from Firebase: {e}"
 
 # Streamlit UI
 st.title('Firebase Realtime Database with Streamlit')
