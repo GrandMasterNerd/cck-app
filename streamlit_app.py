@@ -12,6 +12,12 @@ st.set_page_config(
     layout="centered",
 )
 
+# Initialize session state for progress tracking
+if "page" not in st.session_state:
+    st.session_state["page"] = "Home"
+if "visited_landmarks" not in st.session_state:
+    st.session_state["visited_landmarks"] = {}
+
 # Custom CSS for styling and animations
 st.markdown("""
     <style>
@@ -244,15 +250,21 @@ landmarks_data = {
 # Initialize session state
 if "page" not in st.session_state:
     st.session_state["page"] = "Home"
-
+    
+# Function to calculate progress percentage
+def calculate_progress(category):
+    visited = len(st.session_state.visited_landmarks.get(category, []))
+    total = len(landmarks_data[category])
+    return int((visited / total) * 100) if total > 0 else 0
+    
 # Home Page
 if st.session_state["page"] == "Home":
     st.image(
         "res/Make a logo for this app_ Use your phone as a compass to uncover landmarks, collect badges, and access local deals, all while discovering the city’s rich history and culture. Make a logo. Include the words _Compass.jpg",  # Replace with actual logo URL
-        caption="🧭 Compass Chronicles: Kingston",
+        caption="\U0001F6F1 Compass Chronicles: Kingston",
         use_container_width=True
     )
-    st.header("🧭 Welcome to Compass Chronicles: Kingston")
+    st.header("\U0001F6F1 Welcome to Compass Chronicles: Kingston")
     st.write("""
         **Embark on an Adventure!**  
         Use your phone as a compass to uncover hidden treasures around Kingston.  
@@ -267,13 +279,13 @@ if st.session_state["page"] == "Home":
 
 # Promotions Page
 if st.session_state["page"] == "Promotions":
-    st.header("🏷️ Exclusive Deals!")
+    st.header("\U0001F3F7 Exclusive Deals!")
     st.image(
         "https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg", 
-        caption="📱 Scan to Redeem Deals", 
+        caption="\U0001F4F1 Scan to Redeem Deals", 
         use_container_width=True
     )
-    st.write("🎉 Show this screen to claim your treasure:")
+    st.write("\U0001F389 Show this screen to claim your treasure:")
     st.write("- **Common Ground Coffeehouse:** 10% off any drink today!")
     st.write("- **The Grad Club:** Free appetizer with any meal!")
     if st.button("Back to Home"):
@@ -342,12 +354,17 @@ if st.session_state["page"] == "Details":
 
 # Categories and Landmarks Page
 if st.session_state["page"] == "Categories":
-    st.header("🗺️ Choose Your Adventure")
-    category = st.selectbox("📂 Select a Category", list(landmarks_data.keys()))
+    st.header("\U0001F5FA Choose Your Adventure")
+    category = st.selectbox("\U0001F4C2 Select a Category", list(landmarks_data.keys()))
 
     if category:
-        st.subheader(f"📍 Landmarks in {category}")
-        landmark = st.selectbox("🏛️ Select a Landmark", list(landmarks_data[category].keys()))
+        # Display progress bar
+        st.subheader(f"Progress in {category}")
+        progress = calculate_progress(category)
+        st.progress(progress / 100)
+
+        st.subheader(f"\U0001F4CD Landmarks in {category}")
+        landmark = st.selectbox("\U0001F3DB Select a Landmark", list(landmarks_data[category].keys()))
 
         if landmark:
             details = landmarks_data[category][landmark]
@@ -357,8 +374,17 @@ if st.session_state["page"] == "Categories":
             st.write(f"**History:** {details['History']}")
             st.write(f"**Features:** {details['Features']}")
 
-    if st.button("Back to Home"):
-        st.session_state["page"] = "Home"
+            # Mark as visited
+            if category not in st.session_state.visited_landmarks:
+                st.session_state.visited_landmarks[category] = []
+
+            if landmark not in st.session_state.visited_landmarks[category]:
+                st.session_state.visited_landmarks[category].append(landmark)
+                st.success(f"You've visited {landmark}!")
+
+        if st.button("Back to Home"):
+            st.session_state["page"] = "Home"
+
 
 # Access Firebase credentials from Streamlit secrets
 firebase_cred = {
