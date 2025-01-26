@@ -264,7 +264,7 @@ if st.session_state["page"] == "Home":
         caption="\U0001F6F1 Compass Chronicles: Kingston",
         use_container_width=True
     )
-    st.header("\U0001F6F1 Welcome to Compass Chronicles: Kingston")
+    st.header("🧭 Welcome to Compass Chronicles: Kingston")
     st.write("""
         **Embark on an Adventure!**  
         Use your phone as a compass to uncover hidden treasures around Kingston.  
