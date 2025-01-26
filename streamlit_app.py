@@ -430,9 +430,6 @@ def read_number_from_firebase():
 # Streamlit UI
 st.title('Firebase Realtime Database with Streamlit')
 
-# Input to enter a number
-user_input = st.number_input('Enter a number:', min_value=0, max_value=100, step=1)
-
 # Button to read the number from Firebase
 if st.button('Where am I?'):
     number = read_number_from_firebase()
